@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#2C6B5E">
+<title>叶天士 skill · 温病卫气营血辨证 — 中医思维蒸馏 | ye-tianshi agent skill</title>
+<meta name="description" content="叶天士 · 温病卫气营血辨证 skill（ye-tianshi）：把温病学派奠基人叶天士的辨证框架、用药禁忌与清代文人医家口吻蒸馏成 AI 可调用角色包。含《温热论》《临证指南医案》《叶氏医案存真》《叶选医衡》四部原著、158 条古今病名映射、215 案医案库、20 组剂量卡。不拟方、不诊断，引文逐字可核。">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="author" content="jangviktor-web">
+<link rel="canonical" href="https://jangviktor-web.github.io/ye-tianshi-skill/">
+<link rel="icon" type="image/webp" href="assets/logo@2x.webp">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ye-tianshi · 叶天士温病卫气营血辨证 skill">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://jangviktor-web.github.io/ye-tianshi-skill/">
+<meta property="og:title" content="叶天士 skill · 温病卫气营血辨证 — 中医思维蒸馏">
+<meta property="og:description" content="四部原著 + 卫气营血四层辨证 + 158 条古今病名映射 + 215 案医案库。AI 以叶天士视角条辨，不拟方不诊断，引文逐字可核。">
+<meta property="og:image" content="https://jangviktor-web.github.io/ye-tianshi-skill/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="金环内清代医家手托药苗、竹与远山，下方「叶天士」三字">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="叶天士 skill · 温病卫气营血辨证">
+<meta name="twitter:description" content="把叶天士的辨证框架、用药禁忌与医家口吻蒸馏成 AI 可调用角色包。四部原著，引文逐字可核。">
+<meta name="twitter:image" content="https://jangviktor-web.github.io/ye-tianshi-skill/assets/og.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "ye-tianshi · 叶天士温病卫气营血辨证 skill",
+  "alternateName": ["叶天士 skill", "Ye Tianshi agent skill", "温病派 skill"],
+  "url": "https://jangviktor-web.github.io/ye-tianshi-skill/",
+  "codeRepository": "https://github.com/jangviktor-web/ye-tianshi-skill",
+  "description": "把清代医家叶天士（1667—1746）的卫气营血辨证框架、用药禁忌、剂量思维与文人医家口吻蒸馏为 AI 可调用的角色技能包，用于中医教育、医学史研究与经典研读。正典为《温热论》《临证指南医案》《叶氏医案存真》《叶选医衡》四部原著。不拟方、不诊断、不替代就医。",
+  "version": "2.0.1",
+  "datePublished": "2026-10-02",
+  "dateModified": "2026-10-08",
+  "programmingLanguage": ["Markdown", "Python"],
+  "runtimePlatform": "AI agent skill runtime",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "keywords": "叶天士, 温病, 卫气营血辨证, 中医, 医学史, 医案, 条辨, agent skill, 中医思维蒸馏, 知识库, Ye Tianshi, warm disease, Chinese medicine, TCM, agent skill, knowledge distillation",
+  "about": {
+    "@type": "Person",
+    "name": "叶桂",
+    "alternateName": ["叶天士", "字天士", "号香岩"],
+    "birthDate": "1667",
+    "deathDate": "1746",
+    "occupation": "中医",
+    "nationality": "清"
+  },
+  "measurements": "四部原著 10338 行 · 医案 215 案 · 古今病名映射 158 条 · 剂量卡 20 组",
+  "creator": { "@type": "Organization", "name": "jangviktor-web", "url": "https://github.com/jangviktor-web" }
+}
+</script>
+<style>
+/* ================= tokens ================= */
+:root{
+  --paper:#EAEFEA;
+  --paper-raise:#F2F5F2;
+  --paper-sink:#DFE6E0;
+  --ink:#16191A;
+  --ink-soft:#4A5754;
+  --ink-faint:#7C8A86;
+  --bamboo:#2C6B5E;
+  --bamboo-deep:#1C4A41;
+  --gold:#B08A3E;
+  --rule:rgba(22,25,26,.14);
+
+  /* 舌色即层次：这四个色不是装饰，是诊断阶梯本身 */
+  --wei:#BFD3CB;
+  --qi:#C8A03C;
+  --ying:#9E3A4E;
+  --xue:#5B2A45;
+
+  --f-display:"KaiTi","STKaiti","楷体","楷体_GB2312","BiauKai",serif;
+  --f-verse:"Songti SC","SimSun","宋体",serif;
+  --f-util:"Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;
+  --f-data:"Cascadia Mono",Consolas,"SF Mono",monospace;
+
+  --measure:44rem;
+  --rail:9.5rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-verse);font-size:16.5px;line-height:1.95;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--bamboo)}
+a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--bamboo-deep);outline-offset:3px;border-radius:1px;
+}
+h1,h2,h3,h4{margin:0;font-weight:400;font-family:var(--f-display)}
+p{margin:0 0 1.1em}
+p:last-child{margin-bottom:0}
+ul,ol{margin:0;padding-left:1.4em}
+table{border-collapse:collapse;width:100%}
+
+.skip{position:absolute;left:-9999px;z-index:99;background:var(--bamboo-deep);
+  color:#fff;padding:.6rem 1rem;font-family:var(--f-util);font-size:14px;text-decoration:none}
+.skip:focus{left:1rem;top:1rem}
+
+/* ================= shell ================= */
+.sheet{max-width:78rem;margin:0 auto;padding:0 clamp(1.1rem,4vw,3.5rem)}
+@media (min-width:900px){
+  .sheet{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);
+         gap:clamp(2rem,5vw,4.5rem)}
+}
+.main{min-width:0;padding-bottom:5rem}
+section{scroll-margin-top:1.5rem}
+.band{padding-block:clamp(2.6rem,6.5vw,4.4rem);border-top:1px solid var(--rule)}
+
+/* ================= 书耳 ================= */
+.ear{padding-block:2.4rem 2rem}
+.ear-mark{width:4.6rem;height:auto;display:block;margin-bottom:.9rem}
+.ear-title{font-family:var(--f-display);font-size:1.02rem;letter-spacing:.14em;
+  color:var(--ink-soft);border-bottom:1px solid var(--rule);
+  padding-bottom:.7rem;margin-bottom:.9rem}
+.toc{list-style:none;margin:0;padding:0;font-family:var(--f-util);font-size:13px}
+.toc a{display:block;padding:.32rem 0 .32rem .75rem;color:var(--ink-soft);
+  text-decoration:none;border-left:2px solid transparent;transition:color .18s,border-color .18s}
+.toc a:hover{color:var(--bamboo-deep)}
+.toc a[aria-current="true"]{color:var(--bamboo-deep);border-left-color:var(--gold)}
+.ear-links{margin:1.1rem 0 0;font-family:var(--f-util);font-size:12px;line-height:1.85}
+.ear-links a{text-decoration:none;border-bottom:1px solid var(--bamboo)}
+.ear-links .dim{color:var(--ink-faint);border-bottom:0}
+@media (max-width:899px){
+  .ear{padding-block:1.2rem 0}
+  .ear-mark,.ear-title{display:none}
+  .toc{display:flex;gap:.1rem 1.1rem;overflow-x:auto;padding-bottom:.8rem;
+       border-bottom:1px solid var(--rule);scrollbar-width:none}
+  .toc a{border-left:0;padding:.2rem .05rem;white-space:nowrap}
+  .toc a[aria-current="true"]{border-left:0;color:var(--bamboo-deep)}
+  .ear-links{display:none}
+}
+
+/* ================= hero ================= */
+.hero{padding-block:clamp(2.2rem,5vw,3.4rem) clamp(2.4rem,6vw,3.6rem)}
+.hero-kicker{font-family:var(--f-util);font-size:12px;letter-spacing:.2em;
+  color:var(--ink-faint);margin:0 0 .9rem}
+.hero-name{font-size:clamp(2.8rem,7.6vw,4.6rem);line-height:1;letter-spacing:.05em;margin:0 0 .45rem}
+.hero-sub{font-family:var(--f-display);font-size:clamp(1.05rem,2.4vw,1.3rem);
+  color:var(--bamboo-deep);letter-spacing:.05em;margin:0 0 1.2rem}
+.hero-claim{max-width:36rem;font-size:1rem;color:var(--ink-soft)}
+.hero-claim em{font-style:normal;color:var(--ink);border-bottom:1px solid var(--gold)}
+
+/* 签名元素：卫气营血四层下渐 + 顺传/逆传分叉 */
+.descent{position:relative;margin:1.8rem 0 0;padding-left:clamp(3.4rem,9vw,5.4rem)}
+.descent-axis{position:absolute;left:0;top:.4rem;bottom:.4rem;width:clamp(3rem,8vw,5rem);
+  font-family:var(--f-util);font-size:10.5px;letter-spacing:.12em;color:var(--ink-faint)}
+.descent-axis::after{content:"";position:absolute;left:.45rem;top:1.5rem;bottom:1.5rem;
+  width:1px;background:linear-gradient(var(--wei),var(--qi),var(--ying),var(--xue))}
+.descent-axis span{position:absolute;left:1.1rem;top:.1rem;width:2.6rem;line-height:1.4}
+.layer{position:relative;display:grid;gap:.1rem .9rem;padding:.7rem .9rem;
+  border-left:3px solid var(--wei);background:var(--paper-raise);margin-bottom:2px}
+@media (min-width:620px){.layer{grid-template-columns:3.4rem minmax(0,1fr) auto;align-items:center}}
+.layer[data-l="wei"]{border-left-color:var(--wei)}
+.layer[data-l="qi"]{border-left-color:var(--qi)}
+.layer[data-l="ying"]{border-left-color:var(--ying)}
+.layer[data-l="xue"]{border-left-color:var(--xue)}
+.layer .lg{font-family:var(--f-display);font-size:1.9rem;line-height:1;color:var(--ink)}
+.layer .lt{font-size:.95rem;color:var(--ink-soft)}
+.layer .lt b{font-weight:400;color:var(--ink)}
+.layer .tongue{width:.85rem;height:.85rem;border-radius:50%;border:1px solid var(--rule)}
+.layer[data-l="wei"] .tongue{background:var(--wei)}
+.layer[data-l="qi"] .tongue{background:var(--qi)}
+.layer[data-l="ying"] .tongue{background:var(--ying)}
+.layer[data-l="xue"] .tongue{background:var(--xue)}
+.reverse{position:absolute;left:clamp(3.4rem,9vw,5.4rem);top:0;width:calc(100% - clamp(3.4rem,9vw,5.4rem));
+  height:100%;pointer-events:none}
+.reverse svg{width:100%;height:100%;overflow:visible}
+.reverse text{font-family:var(--f-util);font-size:10.5px;fill:var(--ying);letter-spacing:.06em}
+@media (max-width:899px){.reverse{display:none}}
+
+/* 牌记 */
+.colophon{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;
+  margin-top:1.8rem;padding:1.1rem 1.3rem;background:var(--paper-raise);border:1px solid var(--rule)}
+.seal{flex:0 0 auto;width:3.6rem;height:3.6rem;display:grid;place-content:center;
+  background:var(--bamboo-deep);color:#fff;font-family:var(--f-display);font-size:1rem;
+  line-height:1.15;text-align:center;writing-mode:vertical-rl;
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.2)}
+.tally{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;font-family:var(--f-util);font-size:12px}
+.tally div{display:flex;flex-direction:column;gap:.15rem}
+.tally .n{font-family:var(--f-display);font-size:1.45rem;line-height:1;color:var(--bamboo-deep)}
+.tally .k{letter-spacing:.12em;color:var(--ink-faint);font-size:11px}
+
+/* ================= 通用 ================= */
+.eyebrow{font-family:var(--f-util);font-size:11.5px;letter-spacing:.22em;color:var(--gold);margin:0 0 .5rem}
+.h2{font-size:clamp(1.45rem,3vw,2rem);letter-spacing:.03em;margin-bottom:.5rem}
+.h3{font-size:1.28rem;color:var(--bamboo-deep);margin:2.2rem 0 .5rem}
+.lede{max-width:var(--measure);font-size:1.02rem;color:var(--ink-soft);margin-top:0}
+.mono{font-family:var(--f-data);font-size:.86em;overflow-wrap:anywhere;word-break:break-word}
+.laws li,.def-list dd,.qa-a,.card p{overflow-wrap:anywhere}
+
+.def-list{margin:0;max-width:var(--measure);border-top:1px solid var(--rule)}
+.def-list>div{display:grid;gap:.1rem 1.4rem;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+@media (min-width:560px){.def-list>div{grid-template-columns:8.5rem minmax(0,1fr)}}
+.def-list dt{font-family:var(--f-util);font-size:12px;letter-spacing:.14em;color:var(--ink-faint);padding-top:.28rem}
+.def-list dd{margin:0;font-size:1rem}
+
+.cards{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-block:1.6rem}
+@media (min-width:640px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{background:var(--paper-raise);padding:1.2rem 1.3rem}
+.card h3{font-size:1.2rem;color:var(--bamboo-deep);display:flex;align-items:baseline;gap:.5rem;margin-bottom:.4rem}
+.card h3 .tag{font-family:var(--f-util);font-size:10.5px;letter-spacing:.12em;color:var(--ink-faint)}
+.card p{font-size:.95rem;color:var(--ink-soft);margin:0}
+
+.qa{max-width:var(--measure);margin-top:1.4rem}
+.qa>div{padding-block:1rem;border-top:1px solid var(--rule)}
+.qa-q,.qa-a{margin:0}
+.qa-q{font-family:var(--f-display);font-size:1.1rem;margin-bottom:.3rem}
+.qa-q::before{content:"问";font-family:var(--f-util);font-size:11px;letter-spacing:.1em;
+  color:var(--bamboo-deep);border:1px solid var(--bamboo-deep);padding:.05rem .35rem;
+  margin-right:.6rem;vertical-align:.15em}
+.qa-a{font-size:.96rem;color:var(--ink-soft)}
+.qa-a::before{content:"应";font-family:var(--f-util);font-size:11px;letter-spacing:.1em;
+  color:var(--gold);border:1px solid var(--gold);padding:.05rem .35rem;
+  margin-right:.6rem;vertical-align:.15em}
+
+/* ================= 四层 tabs ================= */
+.tabs{display:flex;gap:.4rem;margin:1.5rem 0 .1rem;flex-wrap:wrap}
+.tab{flex:1 1 5rem;background:transparent;border:0;border-bottom:2px solid var(--rule);
+  padding:.5rem .3rem .55rem;cursor:pointer;font-family:var(--f-display);font-size:1.55rem;
+  color:var(--ink-faint);transition:color .2s,border-color .2s,transform .2s}
+.tab .i{display:block;font-family:var(--f-util);font-size:10px;letter-spacing:.16em;margin-bottom:.1rem}
+.tab:hover{color:var(--ink);transform:translateY(-2px)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--gold)}
+.tab[data-t="wei"][aria-selected="true"]{border-bottom-color:var(--wei)}
+.tab[data-t="qi"][aria-selected="true"]{border-bottom-color:var(--qi)}
+.tab[data-t="ying"][aria-selected="true"]{border-bottom-color:var(--ying)}
+.tab[data-t="xue"][aria-selected="true"]{border-bottom-color:var(--xue)}
+.tabpanel{border:1px solid var(--rule);background:var(--paper-raise);padding:1.35rem 1.45rem}
+.tabpanel h3{font-size:1.4rem;margin-bottom:.5rem}
+.tabpanel dl{margin:0;display:grid;gap:.35rem 1.1rem}
+@media (min-width:560px){.tabpanel dl{grid-template-columns:5.5rem minmax(0,1fr)}}
+.tabpanel dt{font-family:var(--f-util);font-size:11.5px;letter-spacing:.12em;color:var(--ink-faint);padding-top:.25rem}
+.tabpanel dd{margin:0;font-size:.97rem}
+.tabpanel .quote{margin:.9rem 0 0;padding-top:.8rem;border-top:1px dashed var(--rule);
+  font-size:.95rem;color:var(--ink-soft)}
+.tabpanel .quote b{font-weight:400;color:var(--bamboo-deep)}
+
+/* ================= 表格 ================= */
+.tbl-wrap{overflow-x:auto;margin-block:1.5rem;border:1px solid var(--rule)}
+.tbl-wrap table{font-size:.94rem;background:var(--paper-raise)}
+caption{text-align:left;padding:.85rem 1.05rem;font-family:var(--f-display);font-size:1.05rem;
+  color:var(--bamboo-deep);border-bottom:1px solid var(--rule)}
+th,td{padding:.6rem 1.05rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+th{font-family:var(--f-util);font-size:11px;letter-spacing:.13em;font-weight:400;
+  color:var(--ink-faint);background:var(--paper-sink);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:rgba(44,107,94,.07)}
+td.num{font-family:var(--f-data);font-size:.9rem;white-space:nowrap}
+td.name{font-family:var(--f-display);font-size:1.08rem;color:var(--bamboo-deep);white-space:nowrap}
+.badge{display:inline-block;font-family:var(--f-util);font-size:10.5px;letter-spacing:.08em;
+  border:1px solid var(--ink-faint);color:var(--ink-faint);padding:.02rem .35rem;margin-left:.35rem;vertical-align:.1em}
+.badge.warn{border-color:var(--gold);color:var(--gold)}
+
+.note{max-width:var(--measure);margin-block:1.3rem;padding-left:1.1rem;
+  border-left:2px solid var(--bamboo);color:var(--ink-soft);font-size:.97rem}
+.note.alert{border-left-color:var(--gold)}
+
+/* ================= 病名查询 ================= */
+.finder{margin-block:1.4rem;max-width:var(--measure)}
+.finder-input{width:100%;padding:.7rem .9rem;font-family:var(--f-verse);font-size:1rem;
+  color:var(--ink);background:var(--paper-raise);border:1px solid var(--rule);
+  border-bottom:2px solid var(--bamboo)}
+.finder-input::placeholder{color:var(--ink-faint)}
+.finder-meta{font-family:var(--f-util);font-size:12px;color:var(--ink-faint);
+  margin:.6rem 0 .2rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center}
+.finder-hint{font-family:var(--f-util);font-size:12px;color:var(--ink-faint);margin:.5rem 0 0}
+.finder-list{list-style:none;margin:.4rem 0 0;padding:0;border-top:1px solid var(--rule)}
+.finder-list>li{padding:.7rem .2rem;border-bottom:1px solid var(--rule)}
+.finder-list .m{font-size:.98rem}
+.finder-list .arrow{color:var(--ink-faint);margin:0 .4rem}
+.finder-list .c{font-family:var(--f-display);font-size:1.05rem;color:var(--bamboo-deep)}
+.finder-list .src{display:block;font-size:.88rem;color:var(--ink-faint);margin-top:.2rem}
+.finder-empty{padding:1.1rem .2rem;color:var(--ink-soft);font-size:.95rem}
+
+/* ================= 剂量换算 ================= */
+.convert{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1rem;
+  margin-block:1.3rem;padding:1rem 1.2rem;background:var(--paper-raise);border:1px solid var(--rule)}
+.convert label{font-family:var(--f-util);font-size:12px;letter-spacing:.1em;color:var(--ink-faint)}
+.convert input[type=number]{width:6.5rem;padding:.4rem .6rem;font-family:var(--f-data);font-size:1rem;
+  background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
+.convert output{font-family:var(--f-display);font-size:1.5rem;color:var(--bamboo-deep)}
+.convert .unit{font-family:var(--f-util);font-size:12px;color:var(--ink-faint)}
+
+pre.tree{margin:1.4rem 0 0;padding:1.2rem 1.3rem;background:#123028;color:#D9EAE4;
+  font-family:var(--f-data);font-size:12.5px;line-height:1.85;overflow-x:auto;border:1px solid var(--bamboo-deep)}
+pre.tree .cm{color:#8FB8AE}
+pre.tree .hl{color:#EFC98A}
+
+.laws{margin:1.5rem 0 0;padding:0;list-style:none;max-width:var(--measure);counter-reset:law}
+.laws li{padding:.75rem 0 .75rem 2.2rem;border-bottom:1px solid var(--rule);
+  position:relative;font-size:.97rem}
+.laws li::before{content:counter(law);counter-increment:law;position:absolute;left:0;top:.85rem;
+  font-family:var(--f-display);font-size:1.1rem;color:var(--gold);border:1px solid var(--gold);
+  width:1.5rem;height:1.5rem;display:grid;place-content:center}
+.laws b{font-weight:400;color:var(--bamboo-deep)}
+.laws .k{font-family:var(--f-util);font-size:11px;letter-spacing:.12em;color:var(--ink-faint)}
+
+.triggers{display:flex;flex-wrap:wrap;gap:.45rem;margin-block:1.2rem}
+.trig{font-family:var(--f-util);font-size:13px;background:var(--paper-raise);
+  border:1px solid var(--rule);padding:.28rem .7rem;color:var(--ink-soft)}
+.trig.off{border-style:dashed;color:var(--ink-faint)}
+
+.proof{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-block:1.5rem}
+@media (min-width:640px){.proof{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.proof>div{background:var(--paper-raise);padding:1.1rem 1.25rem}
+.proof .pk{font-family:var(--f-util);font-size:11px;letter-spacing:.14em;color:var(--gold);margin-bottom:.3rem}
+.proof .pv{font-family:var(--f-display);font-size:1.12rem;margin-bottom:.2rem}
+.proof .pd{font-size:.92rem;color:var(--ink-soft)}
+.strike{text-decoration:line-through;text-decoration-color:var(--ying);text-decoration-thickness:1.5px;color:var(--ink-faint)}
+
+.fineprint{max-width:var(--measure);font-size:.9rem;color:var(--ink-soft);
+  background:var(--paper-raise);border:1px solid var(--rule);padding:1.2rem 1.3rem;margin-top:1.4rem}
+.ledger{margin-top:1.4rem;max-width:var(--measure);border-top:1px solid var(--rule)}
+.ledger>div{display:grid;gap:.1rem 1.4rem;padding:.9rem 0;border-bottom:1px solid var(--rule)}
+@media (min-width:560px){.ledger>div{grid-template-columns:11rem minmax(0,1fr)}}
+.ledger .ver{font-family:var(--f-display);font-size:1.1rem;color:var(--bamboo-deep)}
+.ledger .ver span{display:block;font-family:var(--f-util);font-size:11px;letter-spacing:.12em;color:var(--ink-faint)}
+.ledger p{margin:0;font-size:.95rem;color:var(--ink-soft)}
+
+footer.foot{padding-block:2rem 3rem;border-top:1px solid var(--rule);font-family:var(--f-util);
+  font-size:12px;letter-spacing:.05em;color:var(--ink-faint);
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem}
+
+/* ================= motion ================= */
+/* motion：默认可见，只有确认能动画时才由 JS 临时加 .will 先藏起来 */
+.reveal{opacity:1}
+.reveal.will{opacity:0;transform:translateY(14px)}
+.reveal.will.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease}
+@media (prefers-reduced-motion:no-preference){
+  .layer{animation:sink .7s cubic-bezier(.2,.7,.2,1) backwards}
+  .layer:nth-child(2){animation-delay:.08s}
+  .layer:nth-child(3){animation-delay:.18s}
+  .layer:nth-child(4){animation-delay:.28s}
+  .layer:nth-child(5){animation-delay:.38s}
+  @keyframes sink{from{opacity:0;transform:translateY(-.9rem)}to{opacity:1;transform:none}}
+  .reverse path{stroke-dasharray:5 4;animation:crawl 22s linear infinite}
+  @keyframes crawl{to{stroke-dashoffset:-180}}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+  .tab{transition:none}
+}
+@media print{
+  .ear,.skip,.reverse{display:none}
+  .sheet{display:block;max-width:none}
+  .reveal{opacity:1;transform:none}
+  pre.tree{background:#fff;color:#111;border:1px solid #999}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">跳到正文</a>
+<div class="sheet">
+
+  <aside class="ear" aria-label="目次">
+    <img class="ear-mark" src="assets/logo@2x.webp" alt="叶天士 skill 图标" width="74" height="81">
+    <div class="ear-title">ye-tianshi 目次</div>
+    <nav>
+      <ul class="toc" id="toc">
+        <li><a href="#position">它是什么</a></li>
+        <li><a href="#do">能做什么</a></li>
+        <li><a href="#four">卫气营血</a></li>
+        <li><a href="#formula">十条公式</a></li>
+        <li><a href="#model">六种心智</a></li>
+        <li><a href="#finder">病名查询</a></li>
+        <li><a href="#dose">剂量与禁区</a></li>
+        <li><a href="#voice">表达还原</a></li>
+        <li><a href="#safety">安全层</a></li>
+        <li><a href="#base">知识底座</a></li>
+        <li><a href="#proof">核验与校勘</a></li>
+        <li><a href="#release">版本</a></li>
+      </ul>
+    </nav>
+    <p class="ear-links">
+      <a href="https://github.com/jangviktor-web/ye-tianshi-skill">在 GitHub 查看 / 安装 ↗</a><br>
+      <a class="dim" href="https://skillhub.cn/skills/user_ff4d9420/yetianshi">SkillHub 一键安装</a>
+    </p>
+  </aside>
+
+  <main class="main" id="top">
+
+    <!-- ============ hero：四层下渐 ============ -->
+    <header class="hero">
+      <p class="hero-kicker">温病学派 · 中医思维蒸馏 · v2.0.1</p>
+      <h1 class="hero-name">叶天士</h1>
+      <p class="hero-sub">名桂，字天士，号香岩。1667—1746，江苏吴县人。</p>
+      <p class="hero-claim">
+        温病学派奠基人，首创<em>卫气营血辨证</em>，「温病四大家」之首。
+        这个 skill 把他的辨证坐标系、用药禁忌与清代文人医家口吻蒸馏成 AI 可调用的角色：
+        <em>条辨</em>、<em>读案</em>、<em>流派辩难</em>、<em>经典研读</em>。
+        四部原著是唯一正典，引文逐字可回查；<em>不为具体患者拟方，不诊断，不替代就医</em>。
+      </p>
+
+      <div class="descent">
+        <div class="descent-axis"><span>邪之<br>由浅<br>入深</span></div>
+        <div class="reverse" aria-hidden="true">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M 96 12 C 99 34, 99 52, 96 66" fill="none" stroke="#9E3A4E" stroke-width="0.5" opacity=".85"/>
+            <text x="70" y="46">逆传心包</text>
+          </svg>
+        </div>
+        <div class="layer" data-l="wei">
+          <span class="lg">卫</span>
+          <span class="lt"><b>发热恶寒、咳</b>　舌白而薄　→　辛凉轻剂（汗之可也）</span>
+          <span class="tongue" title="舌色：白"></span>
+        </div>
+        <div class="layer" data-l="qi">
+          <span class="lg">气</span>
+          <span class="lt"><b>壮热烦渴、脘痞、里结</b>　黄苔　→　清气（辛寒／苦寒／开泄）</span>
+          <span class="tongue" title="舌色：黄"></span>
+        </div>
+        <div class="layer" data-l="ying">
+          <span class="lg">营</span>
+          <span class="lt"><b>心神不安、夜甚、斑点隐隐</b>　舌绛　→　透热转气</span>
+          <span class="tongue" title="舌色：绛"></span>
+        </div>
+        <div class="layer" data-l="xue">
+          <span class="lg">血</span>
+          <span class="lt"><b>耗血动血、斑疹、如狂</b>　紫而暗　→　凉血散血</span>
+          <span class="tongue" title="舌色：紫"></span>
+        </div>
+      </div>
+
+      <div class="colophon">
+        <div class="seal" aria-hidden="true">香岩</div>
+        <div class="tally">
+          <div><span class="n">4</span><span class="k">部原著</span></div>
+          <div><span class="n">10,338</span><span class="k">行原文</span></div>
+          <div><span class="n">215</span><span class="k">案医案</span></div>
+          <div><span class="n">158</span><span class="k">条病名映射</span></div>
+          <div><span class="n">20</span><span class="k">组剂量卡</span></div>
+          <div><span class="n">17</span><span class="k">份维度分析</span></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ 它是什么 ============ -->
+    <section class="band reveal" id="position" aria-labelledby="position-h">
+      <p class="eyebrow">定位</p>
+      <h2 class="h2" id="position-h">一个有正典、有禁区、不肯替你开方的角色</h2>
+      <p class="lede">
+        它不是"老中医模拟器"。角色激活后，AI 按 <span class="mono">SKILL.md</span> 的路由规则定位维度、
+        回四部原著检索原文，用叶氏口吻条辨；同时被七条输出铁律和三层免责框约束住，
+        遇到库里没有的内容必须明说"未涉及"。
+      </p>
+      <dl class="def-list">
+        <div><dt>学派</dt><dd>温病派</dd></div>
+        <div><dt>核心框架</dt><dd>卫气营血辨证（辅以三焦分部）</dd></div>
+        <div><dt>正典</dt><dd>《温热论》《临证指南医案》十卷 88 门《叶氏医案存真》1257 段《叶选医衡》77 篇</dd></div>
+        <div><dt>知识边界</dt><dd>仅基于 <span class="mono">modules/</span> 四部原著与 <span class="mono">references/</span> 维度分析；不涉经方派六经辨证、火神派温阳</dd></div>
+        <div><dt>用途</dt><dd>中医教育、医学史研究、经典研读</dd></div>
+        <div><dt>明确不做</dt><dd>不拟方可照服的处方、不诊断、不替代面诊；现代病名只作检索定位，不可反推诊断</dd></div>
+      </dl>
+    </section>
+
+    <!-- ============ 能做什么 ============ -->
+    <section class="band reveal" id="do" aria-labelledby="do-h">
+      <p class="eyebrow">能力</p>
+      <h2 class="h2" id="do-h">回答前先分类，分类决定输出形态</h2>
+      <p class="lede">六类问题走六条路径；寒暄与追问豁免表格与字数约束，避免"什么都端着辨证架子"。</p>
+
+      <div class="cards">
+        <article class="card">
+          <h3>病证条辨<span class="tag">辨证类</span></h3>
+          <p>先定位层次（卫气营血／三焦／脏腑／络脉／奇经），再落治法方药——禁止只给方向不给方，且方药必须回原文检索照录。</p>
+        </article>
+        <article class="card">
+          <h3>读案与教学<span class="tag">文献类</span></h3>
+          <p>按"记人诊次 → 四诊 → 病机 → 体质底色 → 立法 → 出方 → 转方"七步拆一则医案，并区分叶氏原话与门人按语、徐评。</p>
+        </article>
+        <article class="card">
+          <h3>流派辩难<span class="tag">学术类</span></h3>
+          <p>寒温之辨、脾胃之争、用补之争：表达叶氏立场同时呈现张力两面，不强行和稀泥。</p>
+        </article>
+        <article class="card">
+          <h3>纠偏与回避<span class="tag">边界类</span></h3>
+          <p>经方派／火神派问法先说明流派差异再纠偏；非中医话题礼貌回避并保持角色；急危重症切到急救版免责。</p>
+        </article>
+      </div>
+
+      <div class="qa">
+        <div>
+          <p class="qa-q">风温初起，发热微恶寒、咳嗽，该怎么治？</p>
+          <p class="qa-a">先判层次：此在卫分，未传入气。「在卫汗之可也，到气才可清气。」（《温热论》）治当辛凉轻开，不可辛温发汗；议用连翘一钱半、薄荷七分、杏仁一钱半、桔梗一钱、生甘草三分、象贝一钱——此为叶氏原法，非后世银翘散之谓。</p>
+        </div>
+        <div>
+          <p class="qa-q">久咳三个月，人瘦了，食欲差。</p>
+          <p class="qa-a">不作客邪论。先问体质与胃气，"从来久病。后天脾胃为要"；若舌白食减便溏，是土衰不能生金，议从脾胃主治、拟用建中法，冀得加谷——并明说"未及亲诊，容再议"。</p>
+        </div>
+        <div>
+          <p class="qa-q">湿疹反复怎么治？</p>
+          <p class="qa-a">先归叶氏门类（疮疡／诸痛），引「痰因于湿。久而变热。壅于经隧。变现疮疾疥癣。已酿风湿之毒」，再论湿热相合之治；外症虽在皮肤，其根多在中焦湿热。</p>
+        </div>
+        <div>
+          <p class="qa-q">帮我按这个方子抓三剂。</p>
+          <p class="qa-a">拒。可引述叶氏原方原药与原文剂量作学术展示，但不为具体患者拟方、不代人调剂量；引述后必说明"此为文献用药知识，非处方建议"。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 四层 tabs ============ -->
+    <section class="band reveal" id="four" aria-labelledby="four-h">
+      <p class="eyebrow">核心框架</p>
+      <h2 class="h2" id="four-h">卫之后方言气，营之后方言血</h2>
+      <p class="lede">
+        这是叶天士给温病装上的第一具深度坐标系。选一层看它的主症、舌象、治法与用药——
+        舌色由白转黄、转绛、转紫，是全流程最捷之要诀，较脉象更速。
+      </p>
+
+      <div class="tabs" role="tablist" aria-label="卫气营血四层">
+        <button class="tab" role="tab" data-t="wei" id="t-wei" aria-controls="p-wei" aria-selected="true"><span class="i">第一层</span>卫</button>
+        <button class="tab" role="tab" data-t="qi" id="t-qi" aria-controls="p-qi" aria-selected="false"><span class="i">第二层</span>气</button>
+        <button class="tab" role="tab" data-t="ying" id="t-ying" aria-controls="p-ying" aria-selected="false"><span class="i">第三层</span>营</button>
+        <button class="tab" role="tab" data-t="xue" id="t-xue" aria-controls="p-xue" aria-selected="false"><span class="i">第四层</span>血</button>
+      </div>
+
+      <div class="tabpanel">
+        <div id="p-wei" role="tabpanel" aria-labelledby="t-wei">
+          <h3>卫分 —— 辛凉轻剂，汗之可也</h3>
+          <dl>
+            <dt>主症</dt><dd>发热恶寒、咳嗽、头痛，未传心包</dd>
+            <dt>舌</dt><dd>舌白而薄</dd>
+            <dt>治法</dt><dd>辛凉轻开，轻可去实；<b>忌辛温发汗</b>——温为阳邪已耗津，再开腠理则劫津伤阳</dd>
+            <dt>用药</dt><dd>薄荷、连翘、杏仁、桔梗、生甘草、象贝、牛蒡、桑叶</dd>
+            <dt>顺逆</dt><dd>邪自上受，首先犯肺；顺则传入气分，逆则直陷心包</dd>
+          </dl>
+          <p class="quote"><b>原文：</b>「温邪上受，首先犯肺，逆传心包。」「在卫汗之可也。」《温热论》</p>
+        </div>
+        <div id="p-qi" role="tabpanel" aria-labelledby="t-qi" hidden>
+          <h3>气分 —— 到气才可清气</h3>
+          <dl>
+            <dt>主症</dt><dd>壮热烦渴、脘痞、里结、邪留三焦</dd>
+            <dt>舌</dt><dd>黄苔，须辨"有地之黄"与无地之黄</dd>
+            <dt>治法</dt><dd>辛寒清热／苦寒泻火／开泄气机三条；里结者下之宜轻</dd>
+            <dt>用药</dt><dd>石膏、竹叶；芩连凉膈；杏、蔻、橘、桔轻苦微辛以流动之</dd>
+            <dt>禁忌</dt><dd>湿温三禁：忌汗、忌下、忌辛温；清凉到十分之六七即不可过于寒凉</dd>
+          </dl>
+          <p class="quote"><b>原文：</b>「到气才可清气。」「再不即救，为迟恶（不及）矣。」《温热论》</p>
+        </div>
+        <div id="p-ying" role="tabpanel" aria-labelledby="t-ying" hidden>
+          <h3>营分 —— 透热转气</h3>
+          <dl>
+            <dt>主症</dt><dd>心神不安、夜甚无寐、斑点隐隐</dd>
+            <dt>舌</dt><dd>舌绛，纯绛鲜泽者热在心包</dd>
+            <dt>治法</dt><dd>透热转气——把营分之热提出气分而解，忌一派寒凉遏伏</dd>
+            <dt>用药</dt><dd>犀角、元参、羚羊角、竹叶、花露（犀角今已禁用，属文献记载）</dd>
+            <dt>关键</dt><dd>营分犹可"透"，入血则只可"凉血散血"，层次一乱动手便错</dd>
+          </dl>
+          <p class="quote"><b>原文：</b>「入营犹可透热转气，如犀角、元参、羚羊角质。」《温热论》</p>
+        </div>
+        <div id="p-xue" role="tabpanel" aria-labelledby="t-xue" hidden>
+          <h3>血分 —— 凉血散血</h3>
+          <dl>
+            <dt>主症</dt><dd>耗血动血、吐衄便血、斑疹密布、甚则如狂</dd>
+            <dt>舌</dt><dd>紫而暗，扪之湿</dd>
+            <dt>治法</dt><dd>凉血散血——凉其血以止妄行，散其瘀以防留结</dd>
+            <dt>用药</dt><dd>生地、丹皮、阿胶、赤芍；散血加琥珀、丹参、桃仁</dd>
+            <dt>危候</dt><dd>战汗气脱、舌绛枯萎、斑疹内陷、神昏痉厥，须立即送医</dd>
+          </dl>
+          <p class="quote"><b>原文：</b>「入血就恐耗血动血，直须凉血散血。」《温热论》</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 十条公式 ============ -->
+    <section class="band reveal" id="formula" aria-labelledby="formula-h">
+      <p class="eyebrow">决策</p>
+      <h2 class="h2" id="formula-h">十条诊断公式，以及哪几条不是逐字原文</h2>
+      <p class="lede">
+        公式是把叶氏的判断压缩成可执行的一句话。标 <span class="badge warn">待核</span> 的四条，
+        措辞是"原句＋后人归纳"的复合体，语料中不能整句 grep 命中——本 skill 的纪律是宁可标注，也不让它冒充原文。
+      </p>
+      <div class="tbl-wrap">
+        <table>
+          <caption>叶氏辨证十条公式</caption>
+          <thead><tr><th scope="col">#</th><th scope="col">公式</th><th scope="col">要点</th><th scope="col">出处</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td class="name">层次—治法</td><td>在卫汗之可也，到气才可清气，入营犹可透热转气，入血直须凉血散血</td><td>《温热论》条 8</td></tr>
+            <tr><td class="num">2</td><td class="name">温病 vs 伤寒</td><td>伤寒多有变证；温热虽久，在一经不移，以此为辨</td><td>《温热论》条 3</td></tr>
+            <tr><td class="num">3</td><td class="name">湿温三禁 <span class="badge warn">待核</span></td><td>忌汗、忌下、忌辛温（"忌润"系后世引申）</td><td>散见诸案，非一条原文</td></tr>
+            <tr><td class="num">4</td><td class="name">救阴通阳</td><td>救阴不在血，而在津汗；通阳不在温，而在利小便</td><td>《温热论》条 9</td></tr>
+            <tr><td class="num">5</td><td class="name">下法之分 <span class="badge warn">待核</span></td><td>伤寒下之宜猛；湿温下之宜轻，以粪燥为无湿之准</td><td>前后半在《温热论》中不相邻</td></tr>
+            <tr><td class="num">6</td><td class="name">脾胃分治 <span class="badge warn">待核</span></td><td>脾宜升则健，胃宜降则和；后半"脾喜刚燥，胃喜柔润"未检得</td><td>《临证指南医案·脾胃》</td></tr>
+            <tr><td class="num">7</td><td class="name">内风非风 <span class="badge warn">待核</span></td><td>内风乃身中阳气之动变；后一分句"非发散可解，非沉寒可清"未检得</td><td>《临证指南医案·肝风》</td></tr>
+            <tr><td class="num">8</td><td class="name">久病入络</td><td>初病在经，久痛入络；经主气，络主血</td><td>《临证指南医案·胃脘痛》</td></tr>
+            <tr><td class="num">9</td><td class="name">奇经留连</td><td>肝肾下病，必留连及奇经八脉，不知此旨，宜乎无功</td><td>《临证指南医案·诸痛》<span class="badge">校勘改标</span></td></tr>
+            <tr><td class="num">10</td><td class="name">体质从化</td><td>在阳旺之躯胃湿恒多，在阴盛之体脾湿亦不少</td><td>《温热论》</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note alert">
+        第 9 条原标《…·调经》，经回溯语料结构标记后改判为《…·诸痛》（该句位于 <span class="mono">&lt;篇名&gt;诸痛</span> 区间，案文本身亦是痛证）。
+        留痕见 <span class="mono">references/26-proofread-log.md</span>。
+      </p>
+    </section>
+
+    <!-- ============ 六种心智 ============ -->
+    <section class="band reveal" id="model" aria-labelledby="model-h">
+      <p class="eyebrow">世界观</p>
+      <h2 class="h2" id="model-h">六个模型，撑起一套内科地理</h2>
+      <p class="lede">取自 <span class="mono">references/01-core-philosophy.md</span>。温病只是他的战场之一；这六个模型合起来才是他看病的坐标系。</p>
+      <div class="tbl-wrap">
+        <table>
+          <caption>六大心智模型</caption>
+          <thead><tr><th scope="col">#</th><th scope="col">模型</th><th scope="col">一句话</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td class="name">卫气营血辨证</td><td>给温病装上第一具深浅坐标系——层次一乱，动手便错</td></tr>
+            <tr><td class="num">2</td><td class="name">三焦分部</td><td>把病灶位置落到躯干的上、中、下三段，与深浅轴交叉定位</td></tr>
+            <tr><td class="num">3</td><td class="name">脾胃分治 · 养胃阴</td><td>把"脾"与"胃"拆成两个脏器和两套治法：脾宜升宜刚燥，胃宜降宜柔润</td></tr>
+            <tr><td class="num">4</td><td class="name">阳化内风</td><td>"内风"不是外来之风，是身中阳气的暴动；治在滋液熄风，忌辛散温燥</td></tr>
+            <tr><td class="num">5</td><td class="name">久病入络</td><td>病位会由气分／经脉沉入血分／络脉，故久痛当辛润通络、虫蚁搜剔</td></tr>
+            <tr><td class="num">6</td><td class="name">奇经八脉</td><td>下焦虚损要看冲任督带，不能只盯着脏腑本身</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        六组<b>内在张力</b>不调和、只并置：寒温分流却借径仲景救逆；痛斥误投温补却亲用建中；
+        骂时医"杀人如麻"最狠而取法最杂；温病忌汗却讲透汗战汗；论理含蓄而斥误治声色俱厉；
+        上焦"轻可去实"而下焦用血肉有情厚味填塞。
+      </p>
+    </section>
+
+    <!-- ============ 病名查询 ============ -->
+    <section class="band reveal" id="finder" aria-labelledby="finder-h">
+      <p class="eyebrow">检索</p>
+      <h2 class="h2" id="finder-h">现代病名怎么落到叶氏门类</h2>
+      <p class="lede">
+        用户说的是"糖尿病""湿疹""失眠"，叶天士的书里没有这些名字。<span class="mono">references/13</span>
+        收了 <b>158 条</b>双向映射，其中 <b>117 条</b>有原文或篇目支撑。下面就是这张表，可以直接查。
+      </p>
+
+      <div class="finder">
+        <label class="finder-meta" for="q">输入现代病名或症状，实时筛这 158 条</label>
+        <input class="finder-input" id="q" type="search" placeholder="试试：糖尿病 · 湿疹 · 失眠 · 疟疾 · 带状疱疹" autocomplete="off">
+        <p class="finder-meta"><span id="count"></span><span class="badge">带 cases 的条目可直接进医案库</span><span class="badge warn">【现代延伸对应】＝ 叶氏无此病名，就近归属</span></p>
+        <ul class="finder-list" id="list" aria-live="polite"></ul>
+        <p class="finder-empty" id="empty" hidden>
+          这 158 条里没有该病名。skill 的实际行为是：如实声明"叶氏著作未直接讨论此病名"，
+          再给最接近的辨证思路，且不编造专方——映射仅供检索定位，<b>不可反推诊断</b>。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 剂量 ============ -->
+    <section class="band reveal" id="dose" aria-labelledby="dose-h">
+      <p class="eyebrow">用药</p>
+      <h2 class="h2" id="dose-h">剂量照抄原文，一钱约 3.73 克</h2>
+      <p class="lede">
+        <span class="mono">references/25</span> 收 20 组剂量卡，逐味照录原文汉字剂量；
+        原文没写剂量的一律标"原文未标注"，不补。全库无阿拉伯数字剂量。
+      </p>
+
+      <div class="convert">
+        <label for="qian">清代库平制换算</label>
+        <input type="number" id="qian" value="1" min="0" step="0.1" inputmode="decimal">
+        <span class="unit">钱 =</span>
+        <output id="gram" for="qian">3.73</output>
+        <span class="unit">克</span>
+        <span class="unit">（1 两 = 10 钱 ≈ 37.3 g；1 分 ≈ 0.373 g）</span>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>剂量速查卡（精选 10 组之 5，全 20 组见 references/25）</caption>
+          <thead><tr><th scope="col">药组</th><th scope="col">剂量（照抄原文）</th><th scope="col">证候</th><th scope="col">出处</th></tr></thead>
+          <tbody>
+            <tr><td class="name">卫分辛凉轻剂</td><td class="mono">连翘一钱半 薄荷七分 杏仁一钱半 桔梗一钱 生甘草三分 象贝一钱</td><td>风温上侵，头胀咳嗽</td><td>《临证指南·卷二·咳嗽》</td></tr>
+            <tr><td class="name">甘寒养胃阴</td><td class="mono">甜北沙参一钱半 炒麦冬三钱 川石斛一钱半 生甘草三分 糯稻根须五钱 生鸡子白一枚</td><td>老劳咽疼</td><td>《临证指南·卷八·咽喉》</td></tr>
+            <tr><td class="name">气分开泄</td><td class="mono">飞滑石三钱 白蔻仁七分 杏仁三钱 厚朴一钱半 通草一钱半 广皮白一钱半</td><td>舌黄脘闷头胀口渴溺短</td><td>《临证指南·卷五·暑》</td></tr>
+            <tr><td class="name">咸寒救肾阴</td><td class="mono">生鸡子黄一枚 真阿胶二钱 淡菜五钱 龟版五钱 冲热童便一杯</td><td>真阴枯槁、风木大震</td><td>《临证指南·卷七·痉厥》</td></tr>
+            <tr><td class="name">通补奇经（丸膏）</td><td class="mono">人参一两 麋茸二两 生菟丝子二两 生紫石英一两二钱 茯苓一两半 炒黑小茴五钱</td><td>下焦虚损、淋带</td><td>《临证指南·卷九·淋带》</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="h3">七条用药之禁</h3>
+      <ol class="laws">
+        <li><b>忌辛温发汗</b> <span class="k">温邪忌汗</span><br>误投劫津伤阳，轻则鼻干目暝，重则痉厥虚劳。</li>
+        <li><b>忌早下、湿温忌攻下</b> <span class="k">下之宜轻</span><br>以大便硬（粪燥）为邪尽之准，与伤寒相反。</li>
+        <li><b>忌滥润滋腻</b> <span class="k">湿未化燥忌润</span><br>邪在气分者忌润，"滋腻难散"。</li>
+        <li><b>忌柴胡葛根不辨</b> <span class="k">劫肝阴·竭胃汁</span><br>非全废，须炮制（鳖血制）、小量、配伍阴柔。</li>
+        <li><b>忌升提</b> <span class="k">斑疹痧痢</span><br>以"透"代"升"，"急急透斑为要"。</li>
+        <li><b>忌纯用苦寒</b> <span class="k">防成功反弃</span><br>"清凉到十分之六七即不可过于寒凉"。</li>
+        <li><b>忌温补留邪</b> <span class="k">炉烟虽息，灰中有火</span><br>热减身寒者慎补，须"少少与之"。</li>
+      </ol>
+    </section>
+
+    <!-- ============ 表达还原 ============ -->
+    <section class="band reveal" id="voice" aria-labelledby="voice-h">
+      <p class="eyebrow">口吻</p>
+      <h2 class="h2" id="voice-h">像，是靠约束做到的，不是靠辞藻</h2>
+      <p class="lede">
+        <span class="mono">expression_style.md</span>（265 行）把叶氏的表达拆成可校验的规则：
+        文言为骨、骈散相济、以简驭繁；检索到的知识是素材，必须重新组织成叶氏口吻，禁止照抄学术表述。
+      </p>
+      <dl class="def-list">
+        <div><dt>语气三件套</dt><dd>文言标记词（盖／夫／议／拟／佐／兼／参／凡／考／窃谓）≥2 处并交替；设问 ≥1 处，五式轮换（何以故耶／此何故／何以堪此／是……乎／抑……乎）；结尾必有断言式收束</dd></div>
+        <div><dt>立法动词</dt><dd><b>议</b>＝定治法（"议泄厥阴，以安阳明"）；<b>拟</b>＝未定之方、斟酌之辞（"拟进渗湿之法"）。二者必居其一，不可混</dd></div>
+        <div><dt>五大模式</dt><dd>引用式开篇／病机推演式／分层论述式／警示告诫式／医案夹叙式，据题选用，勿五式并陈</dd></div>
+        <div><dt>频率硬约束</dt><dd>同一设问式或口头禅全卷 ≤2 次；禁"议治法：X、Y"冒号列举式；引注必须写全《书·篇》，禁"同上书"</dd></div>
+        <div><dt>白话文开关</dt><dd>默认每答末尾另起【白话】段做文白转换；只转文字，不改辨证结论、不增删方药；说"不用白话"即关闭</dd></div>
+      </dl>
+      <div class="proof">
+        <div>
+          <p class="pk">盲评方法</p>
+          <p class="pv">20 题长答 · 独立 judge</p>
+          <p class="pd">评审未参与任一版答卷生成；引文以脚本归一化后逐字回查四部原著，含 <span class="mono">&lt;篇名&gt;</span>／<span class="mono">## 门</span> 定位</p>
+        </div>
+        <div>
+          <p class="pk">两轮对比</p>
+          <p class="pv">四维均分 4.27 → 4.49</p>
+          <p class="pd">乙版 20 题 13 胜 3 平 4 负；首轮 ✅18 ⚠️2 ❌0</p>
+        </div>
+        <div>
+          <p class="pk">模板化抑制</p>
+          <p class="pv">「何以故耶」20 次 → 2 次</p>
+          <p class="pd">设问五式强制轮换，任一短语全卷 ≤2 次</p>
+        </div>
+        <div>
+          <p class="pk">骨架纠偏</p>
+          <p class="pv">「议治法：」18 次 → 0 次</p>
+          <p class="pd">冒号列举式判为违规，改回案体叙事并须含转归</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 安全层 ============ -->
+    <section class="band reveal" id="safety" aria-labelledby="safety-h">
+      <p class="eyebrow">安全</p>
+      <h2 class="h2" id="safety-h">正文零安全话术，免责只在文末出现一次</h2>
+      <p class="lede">
+        免责穿插全文会既啰嗦又失效。本 skill 的做法是按主诉严重度选三版免责框之一，
+        固定在回答收束之后输出且仅输出一次。
+      </p>
+      <div class="tbl-wrap">
+        <table>
+          <caption>三版免责框（按主诉选择，不按措辞）</caption>
+          <thead><tr><th scope="col">版本</th><th scope="col">触发</th><th scope="col">框文要点</th></tr></thead>
+          <tbody>
+            <tr><td class="name">常规版</td><td>非危重主诉（酸痛、失眠、咳嗽等）</td><td>仅用于中医学习与学术研究，不构成诊断、处方或个体化治疗建议；不适请咨询执业中医师辨证</td></tr>
+            <tr><td class="name">重症版</td><td>已确诊重症（癌症、中风、心衰等）</td><td>已确诊患者请遵医嘱规范治疗，急性发作请立即送医</td></tr>
+            <tr><td class="name">急救版</td><td>正在发作的急性危重症（高热神昏、大出血、昏迷、偏瘫、剧痛）</td><td>急救须由执业医师执行，请立即拨打急救电话或送医，勿延误</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="h3">历史处方的毒性边界</h3>
+      <p class="lede">
+        古籍里出现犀角、朱砂、雄黄、水银、铅、轻粉、巴豆等药味，本 skill 一律作<b>文献记载</b>呈现，
+        现代多已管制或禁用，<b>切勿照方使用</b>；不给剂量方案、不给炮制与服法指导。
+        涉现实医疗、法律、投资或情绪危机时切出角色，给真实求助指引。
+      </p>
+    </section>
+
+    <!-- ============ 底座 ============ -->
+    <section class="band reveal" id="base" aria-labelledby="base-h">
+      <p class="eyebrow">底座</p>
+      <h2 class="h2" id="base-h">四部原著，和它们被数字化时留下的坑</h2>
+      <p class="lede">
+        正典只有四部：约 <b>46 万字</b>原文，繁体经 <span class="mono">zhconv</span> 统一转简体、
+        编码归一 UTF-8 后落成 <span class="mono">modules/</span>。原文数字化来源为维基文库、中医笈成等公版古籍站。
+      </p>
+
+<pre class="tree"><code>ye-tianshi/
+├── SKILL.md                主入口 414 行：身份卡 + 7 段式角色规则 + 检索路由 + 三张速查表
+├── expression_style.md     表达风格 265 行：速查卡 / 五大模式 / 口头禅库 / 输出三查
+├── examples.md             11 例问答全流程（标准 7 + 开关 1 + 边界 3）
+├── modules/                <span class="hl">四部原著全文 10,338 行 · 1.29 MB</span>
+│   ├── 01_wenshelun.md             《温热论》193 行（华岫云本，叶桂述、顾景文录）
+│   ├── 02_linzheng-zhinan-yian.md  《临证指南医案》十卷 88 门 · 5,073 行
+│   ├── 03_yeshi-yian-cunzhen.md    《叶氏医案存真》三卷 1257 段 · 3,804 行
+│   └── 04_yexuan-yiheng.md         《叶选医衡》<span class="hl">实收 77 篇</span>（卷上 37＋卷下 40）· 1,268 行
+├── references/             17 份维度分析 · 3,667 行 · 426 KB
+│   ├── 01-core-philosophy      六大心智模型        ├── 02-decision-heuristics  临床决策启发式
+│   ├── 03-expression-dna       表达 DNA            ├── 04-antipatterns         反模式与诚实边界
+│   ├── 05-biography-legacy     生平与传承          ├── 06-tensions             六组内在张力
+│   ├── 07-intellectual-lineage 智识谱系            ├── 08-faq                  <span class="hl">29 问</span>
+│   ├── 09-clinical-safety      临床安全层          ├── 10-diet-nutrition       饮食调理与养生
+│   ├── 11-analysis-framework   读案／条辨框架      ├── 12-dosage-framework     剂量思维
+│   ├── 13-disease-name-mapping <span class="hl">古今病名 158 条</span>     ├── 15b-consistency-report  角色一致性盲评
+│   ├── 16-distill-log          蒸馏过程日志        ├── 24-formula-pattern      方证体系
+│   ├── 25-formula-dosage-nav   20 组剂量卡＋篇目导航 └── <span class="hl">26-proofread-log  校勘日志</span>
+├── cases/                  医案库 <span class="hl">215 案</span>（证-机-方-效链）
+│   ├── 00_index.md · 00_merged_table.md   总索引 + 215 案合并总表
+│   └── 01 温病 37 · 02 中风肝风 46 · 03 脾胃消化 30 · 04 肺系虚劳 49 · 05 妇科其他 53
+├── outputs/                盲评答卷（甲／乙两轮）与引文核验脚本 —— 15b 报告的证据链
+└── scripts/                剂量统计与引文核验脚本 + <span class="hl">README.md（运行前提）</span></code></pre>
+
+      <h3 class="h3">引用纪律：三种声音必须分开</h3>
+      <dl class="def-list">
+        <div><dt>一手</dt><dd>《温热论》华岫云本、《叶选医衡》自序、叶氏医案原案 —— 直接引用，作为回答基准</dd></div>
+        <div><dt>二手（书内）</dt><dd>《临证指南医案》门人按语（华岫云、邵新甫、邹滋九等）与徐灵胎评语 —— 须标注"门人总结""徐评"，<b>不可混同叶氏原话</b></dd></div>
+        <div><dt>二手（网络）</dt><dd>《清史稿·叶桂传》、沈德潜《叶香岩传》、方志 —— 标注转述，不作唯一依据</dd></div>
+        <div><dt>已核不实</dt><dd>「必先岁气，毋伐天和」<b>不见于</b>叶氏四部原著，不得作原文引用</dd></div>
+      </dl>
+    </section>
+
+    <!-- ============ 核验与校勘 ============ -->
+    <section class="band reveal" id="proof" aria-labelledby="proof-h">
+      <p class="eyebrow">可核验</p>
+      <h2 class="h2" id="proof-h">它说"全部命中"，你可以自己跑一遍</h2>
+      <p class="lede">
+        核验脚本随包发布，从任意目录都能跑（路径按脚本自身位置推断）。有未命中即以退出码 1 结束——
+        不是只打印给人看。
+      </p>
+      <div class="proof">
+        <div>
+          <p class="pk">引文核验</p>
+          <p class="pv">85 条全部命中</p>
+          <p class="pd">引文 56 · 篇名 11 · 门类 18；<span class="mono">scripts/judge_s11_check.py</span> 退出码 0</p>
+        </div>
+        <div>
+          <p class="pk">剂量卡复核</p>
+          <p class="pv">32 条 grep 命令 32 命中</p>
+          <p class="pd"><span class="mono">references/25</span> 每卡自带可粘贴执行的复核命令</p>
+        </div>
+        <div>
+          <p class="pk">剂量统计可重跑</p>
+          <p class="pv">234 味 · 1,052 条</p>
+          <p class="pd"><span class="mono">scripts/build_dosage_stats.py</span> 写后回读比对条目数</p>
+        </div>
+        <div>
+          <p class="pk">编码卫生</p>
+          <p class="pv">0 个 U+FFFD</p>
+          <p class="pd">全库 UTF-8；繁体经 zhconv 统一转简体</p>
+        </div>
+      </div>
+
+      <h3 class="h3">2026-10-08 发布前核验改了什么</h3>
+      <div class="proof">
+        <div>
+          <p class="pk">语料校正 1 处</p>
+          <p class="pv"><span class="strike">己酿风湿之毒</span> 已酿风湿之毒</p>
+          <p class="pd">《临证指南医案》卷八·疮疡 L487。己／已形近而误；此字之差曾使核验脚本报出一条未命中</p>
+        </div>
+        <div>
+          <p class="pk">门类改标 1 处</p>
+          <p class="pv">调经 → 诸痛</p>
+          <p class="pd">"肝肾下病，必留连及奇经八脉"位于 <span class="mono">&lt;篇名&gt;诸痛</span> 区间（L323–L350），案文本身亦是痛证；<span class="mono">&lt;篇名&gt;调经</span> 在 L531</p>
+        </div>
+        <div>
+          <p class="pk">引注形式 11 处</p>
+          <p class="pv">「同上书」→ 完整《书·篇》</p>
+          <p class="pd">答卷中 10 处带门类、1 处裸引注；规则文本中的"同上书"字样不属违规，未动</p>
+        </div>
+        <div>
+          <p class="pk">计数订正 4 处</p>
+          <p class="pv">79 篇 → 77 篇 · 18 → 17 份</p>
+          <p class="pd">《叶选医衡》篇数按源文件实收订正；references 份数按 <span class="mono">ls</span> 实测订正</p>
+        </div>
+      </div>
+      <p class="note alert">
+        另有 4 条诊断公式的措辞属"原句＋后人归纳"，语料中不能整句命中——已在上方表格显式标 <span class="badge warn">待核</span>，
+        并登记在校勘日志的「待考」节。<b>本集未收 ≠ 叶天士没有此论</b>，同理：检不到 ≠ 说错，只能说不能以原文名义引用。
+      </p>
+      <p class="note">
+        脚本运行前提：Python ≥ 3.8，仅用标准库，无需 <span class="mono">pip install</span>；
+        脚本是审计工具，<b>不是运行时依赖</b>——删掉 <span class="mono">scripts/</span> 不影响角色工作。
+        原文若非 UTF-8，脚本会明确报错并给出 <span class="mono">iconv</span> 修法，而不是静默替换字符制造假未命中。
+      </p>
+    </section>
+
+    <!-- ============ 触发与用法 ============ -->
+    <section class="band reveal" id="use" aria-labelledby="use-h">
+      <p class="eyebrow">用法</p>
+      <h2 class="h2" id="use-h">提到这些就会激活</h2>
+      <p class="lede">命中任一即进入工作流；frontmatter 同时写明了不适用的情形与转介去向。</p>
+      <div class="triggers">
+        <span class="trig">叶天士</span><span class="trig">叶桂</span><span class="trig">天士</span><span class="trig">香岩</span>
+        <span class="trig">温热论</span><span class="trig">临证指南医案</span><span class="trig">叶选医衡</span><span class="trig">叶氏医案存真</span>
+        <span class="trig">温病</span><span class="trig">温病派</span><span class="trig">卫气营血</span><span class="trig">温邪</span>
+        <span class="trig">逆传心包</span><span class="trig">透热转气</span><span class="trig">凉血散血</span>
+        <span class="trig">胃阴</span><span class="trig">养胃阴</span><span class="trig">久病入络</span><span class="trig">奇经八脉</span>
+        <span class="trig">阳化内风</span><span class="trig">肝风内动</span>
+      </div>
+      <div class="triggers" style="margin-top:.5rem">
+        <span class="trig off">不适用：非中医话题</span>
+        <span class="trig off">不适用：经方派六经辨证 → 用胡希恕或倪海厦</span>
+        <span class="trig off">不适用：火神派重用附子 → 用李可</span>
+        <span class="trig off">不适用：急危重症急救</span>
+      </div>
+
+      <h3 class="h3">三步装好</h3>
+      <ol class="laws">
+        <li><b>SkillHub 一键</b> <span class="k">腾讯云 · 国内加速</span><br>把这一行发给你的 agent：<span class="mono">请根据 https://skillhub.cn/install/skillhub.md，安装 @user_ff4d9420/yetianshi。</span></li>
+        <li><b>或从 GitHub 装</b> <span class="k">手动</span><br><span class="mono">git clone https://github.com/jangviktor-web/ye-tianshi-skill.git && cp -r ye-tianshi-skill/ye-tianshi ~/.claude/skills/ye-tianshi/</span></li>
+        <li><b>问它</b> <span class="k">现代病名也行</span><br>报出生理症状或现代病名，它会先归叶氏门类、再引原文条辨；库里没有的会说没有。</li>
+      </ol>
+    </section>
+
+    <!-- ============ 版本与免责 ============ -->
+    <section class="band reveal" id="release" aria-labelledby="release-h">
+      <p class="eyebrow">版本</p>
+      <h2 class="h2" id="release-h">三次提交</h2>
+      <div class="ledger">
+        <div>
+          <p class="ver">v2.0.1<span>2026-10-03</span></p>
+          <p>对标经方中医版的深度升级：角色规则由 4 段式扩为 7 段式；新增 expression_style.md；剂量卡与篇目导航；古今病名表 70+ → 158 条；215 案合并总表；S11 二十题长答盲评与修复（4.27 → 4.49）。</p>
+        </div>
+        <div>
+          <p class="ver">v1.1<span>2026-10-03</span></p>
+          <p>新增 <span class="mono">references/13</span> 古今病名对应表（11 系统、70+ 现代病名）＋《叶选医衡》辨名专篇辨析 9 项；明确"功能性映射、非等同、不可反推诊断"。</p>
+        </div>
+        <div>
+          <p class="ver">v1.0<span>2026-10-02</span></p>
+          <p>首次蒸馏。依"中医思维蒸馏器" Pipeline A：Phase 0 入口分流 → Phase 1 十一路并行调研 → Phase 2 合成 SKILL.md 与 modules/cases → Phase 3 质量验证（12 题盲评 ✅10 ⚠️2 ❌0）→ Phase 4 增量补充 → Phase 5 交付物料。</p>
+        </div>
+        <div>
+          <p class="ver">2026-10-08<span>发布前核验</span></p>
+          <p>语料校正 1 处、门类改标 1 处、引注形式 11 处、计数订正 4 处；4 个核验脚本改为可移植并带退出码；新增校勘日志与脚本运行前提文档。</p>
+        </div>
+      </div>
+
+      <h3 class="h3">免责声明</h3>
+      <div class="fineprint">
+        <p>本 skill 为<b>中医文献学与医学史研究素材</b>，仅供学习、研究、教学使用。<b>不构成任何诊断、治疗或用药建议</b>，不能替代执业医师的面诊与专业判断。</p>
+        <p>涉及的历史处方（含犀角、朱砂、雄黄、水银、铅、轻粉、巴豆等）均属古籍记载，现代多已管制或禁用，<b>切勿照方使用</b>。凡有身体不适或急症（高热神昏、出血、痉厥等），请<b>立即就医</b>。</p>
+        <p>生卒年、十七师完整名单、"天医星"传说等属待考／传说，已标注；《温热论》版本差异（华岫云本 vs 章虚谷、王孟英本）待考。所拟之言均为 AI 依文献生成，非叶天士本人意见。</p>
+      </div>
+
+      <footer class="foot">
+        <span>ye-tianshi · 叶天士温病卫气营血辨证 skill · v2.0.1</span>
+        <span>四部原著 10,338 行 · 215 案 · 158 条病名映射</span>
+        <span><a href="https://github.com/jangviktor-web/ye-tianshi-skill">仓库</a> · <a href="https://github.com/jangviktor-web/ye-tianshi-skill/blob/main/README.md">README</a> · <a href="https://github.com/jangviktor-web/ye-tianshi-skill/blob/main/LICENSE">许可 CC BY-SA 4.0</a></span>
+        <span>本页为 SKILL / README / CHANGELOG / 校勘日志 的可视化整理，未新增素材</span>
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 滚动揭示：渐进增强 —— 条件不满足时内容默认可见，不藏 */
+  var targets = [].slice.call(document.querySelectorAll('.reveal'));
+  var canAnimate = !reduce && ('IntersectionObserver' in window) && document.visibilityState === 'visible';
+  if (canAnimate) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+    targets.forEach(function(el){
+      if (el.getBoundingClientRect().top >= window.innerHeight * 0.92) {
+        el.classList.add('will');
+        io.observe(el);
+      }
+    });
+    /* 兜底：观察器或定时器在异常环境下未触发时，也要显形 */
+    setTimeout(function(){
+      targets.forEach(function(el){ el.classList.add('in'); });
+    }, 2500);
+    window.addEventListener('beforeprint', function(){
+      targets.forEach(function(el){ el.classList.remove('will'); el.classList.add('in'); });
+    });
+  }
+
+  /* 四层 tabs */
+  var tabs = [].slice.call(document.querySelectorAll('.tab'));
+  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  function pick(n){
+    tabs.forEach(function(t, i){
+      var on = i === n;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[i].hidden = !on;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ pick(i); });
+    t.addEventListener('keydown', function(ev){
+      var n = null;
+      if (ev.key === 'ArrowRight') n = (i + 1) % tabs.length;
+      if (ev.key === 'ArrowLeft')  n = (i - 1 + tabs.length) % tabs.length;
+      if (ev.key === 'Home') n = 0;
+      if (ev.key === 'End')  n = tabs.length - 1;
+      if (n !== null) { ev.preventDefault(); pick(n); tabs[n].focus(); }
+    });
+  });
+  pick(0);
+
+  /* 古今病名查询 */
+  var MAP = [{"m":"流感、普通感冒","c":"风、寒、风温","k":"01_wenbing","x":0,"b":"《临证指南医案》卷五\"风\"\"寒\"\"风温\"三门；《温病热病解》：\"伤寒者，以病因而为病名者也。温病热病，以天时与病形而为名者也。\""},{"m":"新冠感染、病毒性肺炎、感染性发热","c":"温病（温热/湿温/疫）、春温伏气","k":"01_wenbing","x":0,"b":"《温疫论》：\"温疫之邪……则直行中道，散漫三焦。\"《辨正风温温疟温毒温疫》：\"温疫因时下另感一气，乃温病而加时加疫。\""},{"m":"细菌性肺炎发热","c":"风温、温热","k":"01_wenbing","x":1,"b":"《临证指南医案·风温》：\"夫风温春温忌汗。初病投剂。宜用辛凉。\"【现代延伸对应】病原归属叶氏无对应"},{"m":"中暑、暑热、湿温","c":"暑、湿","k":"01_wenbing","x":0,"b":"《中暑中热论》：\"暑热者，夏之令也……名曰中暑，亦名中热，其实一也。\"《湿论》：\"感于寒则为寒湿，兼于风则为风湿，动于火则为湿热。\""},{"m":"细菌性痢疾、阿米巴痢疾","c":"痢","k":"","x":0,"b":"《痢疾证治论》：\"痢疾即古所称肠□也（源文件此字阙，通行本作「肠澼」），自仲景而后，又谓之滞下。\""},{"m":"疟疾","c":"疟","k":"","x":0,"b":"《疟疾证治论》：\"瘴疟者，出岭南瘴湿之地。牝疟者，多生阳气不足之人。劳疟者，表里气虚，因劳所发。\""},{"m":"霍乱、急性吐泻","c":"霍乱、吐泻","k":"03_piwei","x":0,"b":"《霍乱证治论》：\"病有干霍乱、湿霍乱，干霍乱死者多，湿霍乱死者少。\""},{"m":"流行性腮腺炎（痄腮）、头面红肿类时疫","c":"温疫（大头瘟）、疫","k":"01_wenbing","x":0,"b":"《温疫论》：\"大头瘟者，头面腮颊肿如瓜瓠是也；虾蟆瘟者，喉痹失音，颈节胀大是也。\""},{"m":"急性扁桃体炎、化脓性咽峡炎（喉蛾）、急性咽喉炎","c":"咽喉（喉痹、喉蛾、喉风）","k":"","x":0,"b":"卷八\"咽喉\"门：\"一阴一阳结。谓之喉痹……即今之所谓喉癣喉风喉蛾等类是也。\""},{"m":"流行性乙型脑炎、流行性脑脊髓膜炎、病毒性脑炎","c":"暑、痉厥、疫","k":"","x":1,"b":"卷五\"暑\"\"疫\"门、卷七\"痉厥\"门；《中暑中热论》：\"暑热者，夏之令也……名曰中暑，亦名中热，其实一也。\"【现代延伸对应】病原归属"},{"m":"淋巴结结核、肺外结核、颈项结核","c":"瘰疬、痰核、虚劳","k":"","x":0,"b":"卷八\"疮疡\"门：\"颈项结核。腹膨足肿。肝木犯中。痰气凝滞\"（另见\"（瘰□痰核）夏枯草 香附 茯苓 苡仁 川贝 丹皮\"案，源文件\"瘰\"下阙字，通行本作\"瘰疬\"）；《虚劳论》（注\"天士改\"）"},{"m":"手足口病、疱疹性咽峡炎","c":"痧疹瘰、幼科\"痧疹\"\"痘\"","k":"01_wenbing","x":1,"b":"卷五\"痧疹瘰\"门、卷十\"痧疹\"\"痘\"篇【现代延伸对应】叶氏无此病名，按\"口手疱疹\"就近归属"},{"m":"慢性疲劳综合征、新冠后遗症（长新冠）、亚健康状态","c":"虚劳、内伤发热、郁","k":"04_feixi","x":0,"b":"《内伤余议》：\"窃谓内热之作。非皆阴火，但气郁则成热耳。\"《寝食说》：\"不能食之证……有脾胃自虚而不能健运者。\""},{"m":"带状疱疹后遗神经痛、慢性顽固性神经痛","c":"诸痛（久痛入络）、疮疡","k":"","x":1,"b":"卷八\"诸痛\"门：\"陈 久痛必入络。气血不行。\"卷八\"疮疡\"门\"暑疡\"\"疮痍\"诸案【现代延伸对应】病毒概念"},{"m":"急慢性胃炎、功能性消化不良、胃溃疡","c":"脾胃、木乘土、呕吐、噫嗳、不食、痞、胃脘痛","k":"03_piwei","x":0,"b":"《心胸胃脘胁腹诸痛辨》：\"胃属刚土，列处中焦，为水谷之海……偏热偏寒，水停食积，皆与真气相薄而痛。\"\"其与胃脘痛别者，胃脘在心之下。\""},{"m":"胃食管反流、反流性食管炎","c":"噎膈反胃、噫嗳、呕吐","k":"03_piwei","x":0,"b":"《噎膈反胃本于阴枯阳结论》：\"食下则胃脘作痛。烦闷不安，须臾吐出，食出而安，其槁在贲门，名之曰噎。噎者属上焦。\""},{"m":"慢性肠炎、溃疡性结肠炎、克罗恩病","c":"泄泻、痢、便血","k":"","x":0,"b":"《痢疾证治论》：\"伤其脏腑之脂膏，动其肠胃之脉络，故或寒或热，皆成脓血。\"《诸血病论》：\"滞下之由，多由湿蒸热瘀，故必脓血相杂，里急后重。\""},{"m":"肠易激综合征、功能性便秘、肠梗阻","c":"泄泻、便闭、肠痹、关格","k":"03_piwei","x":0,"b":"《泄泻九法论》列淡渗、升提、清凉、疏利、甘温、酸收、燥脾、温肾、固涩九法；《淋闭证治论》：\"若大小便皆闭，上为呕吐者，世称关格。\""},{"m":"胆囊炎、胆石症、胆道病","c":"胁痛、肝火、郁","k":"","x":0,"b":"《心胸胃脘胁腹诸痛辨》：\"胁痛旧从肝治，不知肝固内舍膺胁。\""},{"m":"病毒性肝炎、肝损伤、各类黄疸","c":"疸","k":"05_fuke","x":0,"b":"《黄胆证毋拘五证宜别三焦论》：\"非特湿热发黄，而寒湿亦发黄也，但寒湿之黄，黑暗不明，热甚之黄，明如橘色。\"《阴黄说》：\"身冷畏寒，阴黄也……脉沉而微，阴黄也。\""},{"m":"肝硬化腹水、水肿","c":"肿胀、鼓胀、蛊胀","k":"03_piwei","x":0,"b":"《肿胀引经别证辨》：\"诸湿肿满，皆属于脾……其本在肾，其末在肺。\"\"鼓胀者，中空无物，皮肤绷急，多属于气；蛊胀者，中实有物，腹形充大，非蛊即血也。\""},{"m":"肠道寄生虫病","c":"吐蛔、虫积","k":"","x":0,"b":"《虫积论》：\"虫由湿热郁蒸而生…………即寸白、蛔虫、鱼鳖、□瘕之类是也（源文件此字阙）。\""},{"m":"腹外疝、腹股沟疝","c":"疝","k":"05_fuke","x":0,"b":"《七疝解》：\"疝、隐疾也，古称七疝。\""},{"m":"胃下垂、内脏下垂、胃黏膜脱垂","c":"脾胃、木乘土、脱肛（中气下陷）","k":"03_piwei","x":0,"b":"《虚劳论》：\"救脾者，必本于阳气……虚则下陷，当升而举也，补中益气汤是也。\"卷七\"脱肛\"门：\"气下陷为脱肛。\""},{"m":"胃神经官能症、功能性胃肠病、餐后不适综合征","c":"郁、嘈杂、噫嗳、不食","k":"05_fuke（郁）","x":1,"b":"卷六\"郁\"\"嘈杂\"门、卷四\"噫嗳\"\"不食\"门；《五郁六郁解》：\"郁者，闭结凝滞瘀蓄抑遏之总名。\"【现代延伸对应】\"神经官能症\"名"},{"m":"肠粘连、术后麻痹性肠梗阻","c":"肠痹、便闭","k":"03_piwei","x":0,"b":"卷四\"肠痹\"门：\"张 食进脘中难下。大便气塞不爽。肠中收痛。此为肠痹。\""},{"m":"痔疮、肛裂、痔瘘、下消化道出血","c":"便血、痔（疮疡）","k":"","x":0,"b":"卷七\"便血\"门；卷八\"疮疡\"门：\"戴（十九）痔疮下血。湿热居多。\"《诸血病论》：\"肠风者……其血来色必清淡。\""},{"m":"急慢性胰腺炎、胆道蛔虫症、发作性上腹痛","c":"腹痛、木乘土、吐蛔","k":"","x":0,"b":"卷八\"腹痛\"门；《心胸胃脘胁腹诸痛辨》：\"腹痛分为三部，脐以上痛者，为太阴脾；当脐而痛者，为少阴肾。\""},{"m":"酒精性肝病、酒精性胃炎、嗜酒致病","c":"疸、肿胀、痰湿","k":"05_fuke","x":0,"b":"《酒人多中风说》：\"酒湿之为病，亦能作痹证，口眼斜歪，半身不遂云云。\"《腹胀禁用攻泻论》"},{"m":"急性支气管炎、上感、慢性支气管炎、慢阻肺","c":"咳嗽、喘、痰饮、风温","k":"04_feixi","x":0,"b":"《咳嗽要论》：\"咳嗽必由于肺……求其病本，则惟风寒劳损二者居其八九。\"《喘胀标本论》：\"先喘而后胀者，生于肺；先胀而后喘者，生于脾。\""},{"m":"支气管哮喘","c":"哮","k":"04_feixi","x":0,"b":"《喘哮短气气逆息贲辨》：\"哮者与喘相类，但不似喘开口出气之多。《圣济总录》名为呷嗽是也，以胸中多痰，结于喉间……随其呼吸有呀呷之声。\""},{"m":"支气管扩张、反复咯血","c":"吐血、咳嗽、肺痿","k":"04_feixi","x":0,"b":"《诸血病论》：\"咳血者，其证必先病咳嗽，咳之不已，复有鲜血……或痰内有红丝，是为肺痿。\""},{"m":"肺结核、肺痨","c":"虚劳、肺痿","k":"04_feixi","x":0,"b":"《虚劳论》（注\"天士改\"）：\"第以脾肾分主气血。\"《诸血病论》：\"唾血者……骨蒸内热，干咳肌瘦，乃肾水枯涸……与肺病咳血同为危候。\""},{"m":"肺癌咳血（以咳血就诊）","c":"吐血、肺痹、虚劳","k":"04_feixi","x":1,"b":"《诸血病论》：\"患此必十死八九，最为难治。\"【现代延伸对应】叶氏无肿瘤概念"},{"m":"胸腔积液、胸膜炎、声音嘶哑","c":"胸痹、肺痹、痰饮、失音","k":"04_feixi","x":0,"b":"《痰论》：\"痰饮多成胁满胸臂痛。\"卷二\"失音\"门、卷四\"肺痹\"\"胸痹\"两门"},{"m":"肺气肿、肺心病（喘胀并见）","c":"喘、肿胀、肺胀","k":"04_feixi","x":0,"b":"《喘胀标本论》：\"先喘而后胀者，生于肺；先胀而后喘者，生于脾。\"卷十\"胀\"篇：\"大凡喘必生胀。胀必生喘。\""},{"m":"尘肺、矽肺、肺纤维化、间质性肺病","c":"肺痿、咳嗽、虚劳","k":"04_feixi","x":1,"b":"卷二\"肺痿\"\"咳嗽\"门、卷一\"虚劳\"门；《诸血病论》：\"咳血者……或痰内有红丝，是为肺痿。\"【现代延伸对应】粉尘职业史"},{"m":"百日咳（顿咳）、痉挛性阵咳","c":"咳嗽、幼科\"惊\"","k":"04_feixi","x":1,"b":"《咳嗽要论》：\"咳嗽必由于肺……求其病本，则惟风寒劳损二者居其八九。\"【现代延伸对应】叶氏无\"顿咳\"病名"},{"m":"呼吸衰竭、喘脱、心肺功能不全","c":"喘、脱","k":"04_feixi","x":1,"b":"卷三\"脱\"门、卷四\"喘\"门；《虚劳论》：\"救肾者，必本于阴血……救脾者，必本于阳气。\"【现代延伸对应】"},{"m":"阻塞性睡眠呼吸暂停（鼾眠）、鼾症","c":"痰、肿胀、嗜卧","k":"","x":1,"b":"《痰论》：\"湿痰多成倦怠嗜卧。\"《寝食说》：\"嗜卧之证……若脉缓怠惰，四肢不收，体重泄泻而嗜卧，由于湿也。\"【现代延伸对应】"},{"m":"脑卒中及后遗症","c":"中风、肝风（阳化内风）","k":"02_zhongfeng","x":0,"b":"《临证指南医案·中风》华岫云按：\"其论症。则有真中类中。中经络血脉脏腑之分。\"\"今叶氏发明内风。乃身中阳气之变动。肝为风脏。因精血衰耗。水不涵木。\""},{"m":"高血压、梅尼埃病、耳源性眩晕","c":"眩晕、肝风、肝火","k":"02_zhongfeng","x":0,"b":"《中风证治论》：\"诸风掉眩，皆属于肝……血病则无以养筋，筋病则掉眩强直之类。\"《肝风》：\"内风。乃身中阳气之动变。\""},{"m":"偏头痛、血管神经性头痛","c":"头痛、头风","k":"02_zhongfeng","x":0,"b":"《首论》：\"方书多分头痛头风为二门，然一病也，但有新久去留之分耳。浅而近者，名头痛……深而远者，名头风。\""},{"m":"癫痫","c":"癫痫、痫、痉厥","k":"","x":0,"b":"《癫痫狂辨》：\"痫者，皆以风热痰而得之……其证发即仆地，闷乱无知，嚼舌吐沫，背反张，目上视，手足搐搦，或作六畜声。\""},{"m":"帕金森病、震颤","c":"肝风、痉厥","k":"02_zhongfeng","x":1,"b":"《中风证治论》：\"血病则无以养筋，筋病则掉眩强直。\"【现代延伸对应】\"颤振\"为后世病名"},{"m":"面神经麻痹（口眼歪斜）","c":"中风（中络）、肝风","k":"02_zhongfeng","x":0,"b":"《中风五派异同论》：\"中血脉者，病在半表半里，故口眼□斜（源文件此字阙，通行本作「㖞」）。\""},{"m":"失眠、焦虑症、抑郁症、神经症","c":"不寐、郁、惊悸、恐、肝火","k":"05_fuke（郁）","x":0,"b":"卷六\"不寐\"门；《五郁六郁解》：\"郁者，闭结凝滞瘀蓄抑遏之总名。\"六郁分气湿痰血食热"},{"m":"精神分裂症、躁狂发作","c":"癫、狂","k":"","x":0,"b":"《癫痫狂辨》：\"癫者，或悲或笑，或歌或泣，如醉如痴……狂者，猖狂刚暴，妄见妄言，骂詈不避亲疏……甚则弃衣而走，登高而歌。\""},{"m":"晕厥、休克","c":"厥、脱","k":"04_feixi（脱）","x":0,"b":"《厥论》：\"厥者，手足逆冷，阴阳不相接之谓也。\"《风厥辨》：\"静而不搐者为厥，动而伸搐者为风。\""},{"m":"冠心病、心绞痛、心肌缺血","c":"心痛、胸痹","k":"","x":0,"b":"卷八\"心痛\"门：\"谭（三五）心痛引背。口涌清涎。肢冷。气塞脘中。此为脾厥心痛。\"《心痛解》：\"心与背相引，心痛彻背，背痛彻心，宜急温其经。\""},{"m":"心律失常、心悸、心脏神经症","c":"惊悸、怔忡","k":"","x":0,"b":"《惊悸恐辨》：\"悸即怔忡也。怔忡者，本无惊恐，动而不宁，惊者，因外有所触而卒动。\"卷八\"心痛\"门：\"田（十三）脉细数。闻雷被惊。心下漾漾作痛。\""},{"m":"心力衰竭、心源性水肿","c":"喘、肿胀、脱","k":"03_piwei","x":0,"b":"卷三\"肿胀\"\"脱\"门、卷四\"喘\"门；《喘胀标本论》：\"先喘而后胀者，生于肺。\""},{"m":"三叉神经痛、眶上神经痛、非典型面痛","c":"头痛、头风、诸痛","k":"02_zhongfeng","x":0,"b":"《首论》：\"眉棱骨痛者，风寒痰热皆得干之。\"\"头半寒痛，膀胱足太阳所主。\"卷八\"诸痛\"门"},{"m":"面肌痉挛、抽动障碍","c":"肝风、痉厥","k":"02_zhongfeng","x":1,"b":"卷一\"肝风\"门；《中风证治论》：\"血病则无以养筋，筋病则掉眩强直之类。\"【现代延伸对应】\"面肌痉挛\"名"},{"m":"阿尔茨海默病、血管性痴呆、认知功能障碍","c":"神呆、中风、痉厥","k":"02_zhongfeng","x":1,"b":"卷十\"痫痉厥\"篇：\"唐（十四）面青脉濡。神呆。舌缩不伸。\"《临证指南医案·中风》：\"今叶氏发明内风。乃身中阳气之变动。\"【现代延伸对应】"},{"m":"惊恐障碍、焦虑发作、广场恐怖","c":"惊、悸、恐、郁","k":"04_feixi","x":0,"b":"卷七\"惊\"门：\"某 惊则气逆。阳泄为汗。用重镇压惊。\"《惊悸恐辨》：\"惊者闻响即惊，恐者自知。\"《七情考》"},{"m":"神经衰弱、躯体形式障碍、多梦易醒","c":"不寐、嗜卧、郁","k":"","x":0,"b":"《寝食说》：\"不得卧之证，若劳神忧虑，耗其阴血，惺惺不寐，病在心也。\"\"嗜卧之证，若肝气受热，或浊火乱其神明，多睡少醒，由于热也。\""},{"m":"低血压、直立性低血压、晕动病","c":"眩晕、厥","k":"02_zhongfeng","x":1,"b":"卷一\"眩晕\"门；《厥论》：\"厥者，手足逆冷，阴阳不相接之谓也。\"【现代延伸对应】\"低血压\"名"},{"m":"痛风、类风湿关节炎、风湿性关节炎、骨关节炎","c":"痹（行/痛/着/周痹）、历节","k":"","x":0,"b":"《痹证析微论》：\"行痹者，行而不定，世称走注、疼痛之类是也；痛痹者，疼痛苦楚，世称痛风、白虎历节之类是也；着痹者，着而不移，世称麻木不仁之类是也。\"《临证指南医案·痹》：\"久痹酿成历节。\""},{"m":"坐骨神经痛、腰椎间盘突出、肩周炎","c":"腰腿足痛、肩臂背痛、痹（肢痹）","k":"","x":0,"b":"卷八\"腰腿足痛\"\"肩臂背痛\"；痹门俞案：\"肩胛连及臂指。走痛而肿。一年。乃肢痹也。\""},{"m":"脚气病、下肢水肿麻木","c":"脚气","k":"","x":0,"b":"《脚气论》：\"其两足软弱，类痿痹而时发时止，痛惟在足……故名壅疾。\""},{"m":"肌无力、肌萎缩、运动神经元病","c":"痿","k":"","x":0,"b":"《痿论》：\"痿乃正气本虚，致成怫郁懈惰之病，为柔缓之邪，当以不足名之。\""},{"m":"骨质疏松、骨软化（骨痿）","c":"痿（骨痿）、虚劳","k":"","x":0,"b":"卷七\"痿\"门：\"（骨痿）鹿筋胶 羯羊肉胶 牛骨髓 猪脊髓 线鱼胶 苁蓉干……\"《痿论》：\"痿乃正气本虚……当以不足名之。\""},{"m":"颈椎病、颈肩肌筋膜炎、肩背劳损","c":"肩臂背痛、诸痛、痹（肢痹）","k":"","x":0,"b":"卷八\"肩臂背痛\"门；痹门俞案：\"肩胛连及臂指。走痛而肿。一年。乃肢痹也。\""},{"m":"腱鞘炎、网球肘、跟痛症、筋伤后遗痛","c":"诸痛（久痛入络）、痹","k":"","x":0,"b":"卷八\"诸痛\"门：\"陈 久痛必入络。气血不行。\"《痛无补法辨》：\"痛而拒按者为实，可按者为虚。\""},{"m":"强直性脊柱炎、股骨头坏死、膝骨关节炎","c":"腰腿足痛、痹（骨痹）、痿","k":"","x":1,"b":"卷八\"腰腿足痛\"门；《痹证析微论》：\"痹者，闭也，皮肉筋骨，为风寒湿气杂感，血脉闭塞而不流通也。\"【现代延伸对应】"},{"m":"糖尿病、糖耐量异常","c":"三消、消渴、脾瘅","k":"","x":0,"b":"《三消证治论》：\"多饮而渴不止为上消……消谷善饥为中消……溲便频膏浊不禁为下消。\"《临证指南医案·脾瘅》：\"此症久延。即化燥热。转为消渴。\""},{"m":"甲状腺功能亢进","c":"肝火、痰","k":"","x":1,"b":"【现代延伸对应】叶氏无甲状腺概念；\"善饥消瘦、心悸多汗\"类证散见肝火、痰、汗诸门"},{"m":"肥胖症、高脂血症","c":"痰、脾瘅、肿胀","k":"05_fuke（痰饮）","x":0,"b":"《痰论》：\"湿痰多成倦怠嗜卧。\"《脾瘅》：\"脾瘅症，《经》言因数食甘肥所致。盖甘性缓，肥性腻，使脾气遏郁。\""},{"m":"甲状腺肿、甲状腺结节","c":"瘿瘤","k":"","x":1,"b":"【现代延伸对应】叶氏无甲状腺概念；两部源文件无\"瘿\"专篇，然卷八\"疮疡\"门存\"颈项结瘿\"\"气火结瘿\"两案，详见下条"},{"m":"甲状腺肿、甲状腺结节（瘿）、颈前肿块","c":"疮疡（瘿、痰核）","k":"","x":0,"b":"卷八\"疮疡\"门：\"王（十四）脉左数右长。颈项结瘿。时衄。（瘿）\"\"陈 躁急善怒。气火结瘿。烁筋为痛。\"\"某 气郁痰核。\"（叶氏无\"瘿\"专篇，然卷八存瘿案二则）"},{"m":"甲状腺功能减退、黏液性水肿","c":"虚劳、肿胀","k":"","x":1,"b":"《虚损宜分阴阳施治论》：\"阳虚多寒者，最嫌凉润。\"《虚劳论》：\"救脾者，必本于阳气。\"【现代延伸对应】叶氏无甲状腺概念"},{"m":"营养不良、维生素缺乏、消瘦羸弱","c":"虚劳、疳、不食","k":"04_feixi","x":0,"b":"《寝食说》：\"不能食之证……有脾胃自虚而不能健运者。\"卷十\"疳\"篇"},{"m":"急慢性肾炎、水肿","c":"肿胀、淋浊","k":"03_piwei","x":0,"b":"《肿胀引经别证辨》：\"肾者，胃之关也，关门不利，故聚水而从其类也。\""},{"m":"尿路感染、膀胱炎、尿道炎、前列腺炎","c":"淋浊、淋闭、精浊","k":"05_fuke（淋浊）","x":0,"b":"《精浊论》：\"溺与精所出之道不同。淋病在溺道……浊病在精道。\""},{"m":"遗精、滑精、乳糜尿（膏淋）","c":"遗精、精滑、淋浊","k":"04_feixi（遗精）","x":0,"b":"《遗精白浊皆由心肾两虚辨》：\"遗精者，不交而自泄也；梦遗者，梦交而泄也。\"《精滑便浊分别辨》：\"便浊是便溺混浊，即五淋之膏淋也。\""},{"m":"阳痿、勃起功能障碍","c":"阳痿","k":"","x":0,"b":"卷三\"阳痿\"门"},{"m":"男性不育、少弱精","c":"阳痿、遗精、虚劳","k":"","x":1,"b":"【现代延伸对应】叶氏无精液分析概念；《虚损宜分阴阳施治论》：\"精虚者，宜补其下。\""},{"m":"前列腺增生（癃闭）、排尿困难","c":"淋闭、淋浊","k":"05_fuke（淋浊）","x":1,"b":"《淋闭证治论》：\"小便不通之谓闭，滴沥作痛之谓淋。\"\"若大小便皆闭，上为呕吐者，世称关格。\"【现代延伸对应】\"前列腺\"概念"},{"m":"尿潴留、神经源性膀胱、尿失禁（遗溺）","c":"淋闭、脱（肾气不摄）","k":"","x":0,"b":"《淋闭证治论》：\"若中气弱，不能运化清浊而淋者，宜加补气之药。\"卷七\"脱肛\"门：\"某 便后。少腹痛肛坠。溺则便滑。肾虚不摄。\""},{"m":"早泄、滑精、性神经症","c":"遗精、精滑","k":"","x":1,"b":"《精滑便浊分别辨》：\"精滑则牵引粘腻，虽不便溺，亦时有之。\"【现代延伸对应】\"早泄\"名"},{"m":"男性更年期、性欲减退、雄激素缺乏","c":"虚劳、阳痿、汗","k":"","x":1,"b":"卷三\"阳痿\"\"汗\"门；《虚劳论》：\"救肾者，必本于阴血。\"【现代延伸对应】"},{"m":"血精、精囊炎、血尿（溺血）","c":"淋浊、溺血（诸血病）","k":"05_fuke（淋浊）","x":0,"b":"《诸血病论》：\"溺血便是溺中见红，法当凉解。\"\"赤淋则溺管涩痛，法宜清利。\""},{"m":"缺铁性贫血、再生障碍性贫血","c":"虚劳、诸血病","k":"04_feixi（虚劳）","x":0,"b":"《虚劳论》：\"救肾者，必本于阴血……救脾者，必本于阳气。\"《诸血病论》：\"凡阳盛阴虚，有升无降，血随气升，越出上窍。\""},{"m":"血小板减少性紫癜、过敏性紫癜","c":"诸血病（肌衄）、便血","k":"","x":0,"b":"《诸血病论》：\"血从汗孔出，谓之肌衄。从舌出，谓之舌衄。\"\"肠风者，其人本肠胃蓄热……藏毒者……其血来必浑浊。\""},{"m":"咯血、呕血、鼻出血","c":"吐血、衄、诸血病","k":"04_feixi（吐血）","x":0,"b":"《吐血三要论》：\"凡治吐血宜降气，不宜降火；宜行血，不宜止血；宜补肝，不宜伐肝。\""},{"m":"白血病、淋巴瘤、骨髓增殖性肿瘤（以虚劳发热就诊）","c":"虚劳、瘰疬（痰核）、诸血病","k":"04_feixi","x":1,"b":"《虚劳论》：\"夫人之虚，不属于气，即属于血。\"卷八\"疮疡\"门\"颈项结核\"案【现代延伸对应】肿瘤概念"},{"m":"凝血功能障碍、血友病、广泛出血倾向","c":"诸血病（肌衄、舌衄、溺血）","k":"","x":0,"b":"《诸血病论》：\"血从汗孔出，谓之肌衄。从舌出，谓之舌衄，心与肝之热也。\"《血营气卫论》：\"血之为患，其妄行则为吐衄，其衰涸则为虚劳。\""},{"m":"月经不调、闭经、痛经、子宫肌瘤、卵巢囊肿","c":"调经、瘕（症瘕）、积聚","k":"05_fuke","x":0,"b":"卷九\"调经\"门；\"瘕\"门：\"瘕聚有形高突。痛在胃脘心下。或垂腰少腹……此皆冲脉为病。\"《癖等七种释名论》：\"症者征也，以其有所征验，及久而成积聚也；瘕者假也。\""},{"m":"功能失调性子宫出血、崩漏","c":"崩漏","k":"05_fuke（崩漏）","x":0,"b":"卷九\"崩漏\"门；《诸血病论》：\"崩中者，血下崩腾，妄行不止之称。\""},{"m":"盆腔炎、阴道炎、带下病","c":"淋带","k":"05_fuke（淋带）","x":0,"b":"卷九\"淋带\"门；《诸血病论》：\"带下者，经水淋漓，如带不断之谓。\""},{"m":"更年期综合征","c":"虚劳、郁、崩漏","k":"05_fuke","x":0,"b":"《虚损宜分阴阳施治论》：\"阳虚多寒者，最嫌凉润。\"《五郁六郁解》六郁"},{"m":"不孕症","c":"调经、胎前、淋带","k":"05_fuke","x":1,"b":"【现代延伸对应】叶氏无\"不孕\"专篇；生育相关从调经与奇经（冲任督带）论治"},{"m":"妊娠期疾病、产褥期疾病、产后发热","c":"胎前、产后、热入血室","k":"05_fuke（产后）","x":0,"b":"卷九\"胎前\"\"产后\"\"热入血室\"三门"},{"m":"妊娠恶阻、妊娠剧吐","c":"胎前（恶阻）","k":"05_fuke","x":0,"b":"《叶氏医案存真》卷二：\"女科有胎气，以立基为要。恶阻呕吐酸味，宜安胃调气。\"《寝食说》：\"有孕妇胎成而恶阻者。\""},{"m":"先兆流产、胎动不安、习惯性流产","c":"胎前","k":"05_fuke","x":0,"b":"卷九\"胎前\"门：\"汪 娠八月。胎动不安。脘闷不饥。宜凉血调气。\""},{"m":"多囊卵巢综合征、稀发排卵、肥胖伴月经失调","c":"调经、瘕、奇经（冲任督带）","k":"05_fuke","x":1,"b":"卷九\"调经\"\"瘕\"门；《奇经八脉大旨》：\"八脉之中惟任督二脉，为人身之子午，为升降之道。\"【现代延伸对应】内分泌概念"},{"m":"子宫内膜异位症、子宫腺肌症、渐进性痛经","c":"调经、瘕（冲脉为病）","k":"05_fuke","x":0,"b":"卷九\"瘕\"门：\"瘕聚有形高突。痛在胃脘心下。或垂腰少腹……此皆冲脉为病。\"《癖等七种释名论》：\"瘕者假也。\""},{"m":"乳腺增生、乳房结节、急性乳腺炎（乳痈）","c":"疮疡（乳、乳痈、乳房结核）","k":"","x":0,"b":"卷八\"疮疡\"门：\"沈（氏）肝气郁遏。宿痞乳痈。（乳）\"\"某（氏）乳房结核。是少阳之结……恐产育有年。酿为疡症耳。\""},{"m":"产后抑郁、产后焦虑、产后失眠","c":"产后、郁、不寐","k":"05_fuke（产后）","x":1,"b":"卷九\"产后\"门、卷六\"郁\"\"不寐\"门；《五郁六郁解》\"郁者，闭结凝滞瘀蓄抑遏之总名\"【现代延伸对应】"},{"m":"子宫脱垂、盆腔器官脱垂、压力性尿失禁","c":"脱肛、淋带（气陷不摄）","k":"03_piwei","x":1,"b":"卷七\"脱肛\"门：\"孙 面色痿黄……气下陷为脱肛。\"《虚劳论》：\"虚则下陷，当升而举也。\"【现代延伸对应】"},{"m":"麻疹、风疹、幼儿急疹、病毒疹","c":"痧疹瘰","k":"01_wenbing","x":0,"b":"卷五\"痧疹瘰\"门；卷十幼科\"痧疹\"\"痘\"篇"},{"m":"湿疹、荨麻疹、皮肤瘙痒","c":"疮疡、痧疹瘰","k":"","x":0,"b":"《燥论》：\"燥在外，皮肤皱揭，疥痒爪枯。\"卷八\"疮疡\"篇"},{"m":"带状疱疹、丹毒、皮肤化脓感染","c":"疮疡、火","k":"","x":0,"b":"《火论》：\"或为疮肿痈疽，寒热战栗，扰躁狂越，证见于外。\""},{"m":"痤疮、脂溢性皮炎、天疱疮","c":"疮疡","k":"","x":1,"b":"【现代延伸对应】素材不足，两部源文件无专论，慎用"},{"m":"银屑病（白疕）、扁平苔藓、苔藓样皮炎","c":"疮疡（疮痍、疥癣）、燥","k":"","x":0,"b":"卷八\"疮疡\"门：\"杨（十五）身瘦久疮。血分有热。\"\"邹（四三）痰因于湿。久而变热。壅于经隧。变现疮疾疥癣。\"《燥论》：\"燥在外，皮肤皱揭，疥痒爪枯。\""},{"m":"荨麻疹、皮肤过敏、疹块瘙痒","c":"疮疡（暑疡、瘾疹）","k":"","x":0,"b":"卷八\"疮疡\"门：\"陈 脉左数实。血络有热。暑风湿气外加。遂发疹块。壅肿瘙痒。是属暑疡。\"《诸血病论》：\"湿滞于血，必发痛痒瘾疹。\""},{"m":"疥疮、体癣、股癣、手足癣","c":"疮疡（疥癣）","k":"","x":0,"b":"卷八\"疮疡\"门：\"邹（四三）……变现疮疾疥癣。己酿风湿之毒。\""},{"m":"慢性溃疡、褥疮、窦道（溃疡、疡漏）","c":"疮疡（溃疡、疡漏）","k":"","x":0,"b":"卷八\"疮疡\"门：\"顾（五八）脉微小。溃疡半月。余肿未消。脓水清稀。\"\"曹（三四）因疡漏。过进寒凉。\""},{"m":"疖、痈、丹毒、皮肤化脓感染","c":"疮疡（疖、痈、风热项肿）、火","k":"","x":0,"b":"卷八\"疮疡\"门：\"金 头巅热疖。未能泄邪。\"\"某 风热毒闭。项后肿。\"《火论》：\"或为疮肿痈疽，寒热战栗。\""},{"m":"白癜风、皮肤色素脱失","c":"疮疡、诸血病","k":"","x":1,"b":"【现代延伸对应】叶氏无白癜风专论，仅卷八\"疮疡\"门可挂靠；《血营气卫论》\"血之为患……其衰涸则为虚劳\"可参阅"},{"m":"脱发、斑秃、须发早白","c":"虚劳、诸血病","k":"","x":1,"b":"《血营气卫论》：\"血之为患……其衰涸则为虚劳。\"【现代延伸对应】叶氏无\"脱发\"专论"},{"m":"黄褐斑、面部色素沉着","c":"肝火、郁、疮疡","k":"05_fuke（郁）","x":1,"b":"卷六\"肝火\"\"郁\"门【现代延伸对应】叶氏无色斑专论"},{"m":"耳聋、耳鸣","c":"耳、肝风","k":"","x":0,"b":"《老年人耳聋与少年人异治法论》：\"故人年五十以外，肾气渐衰于下，每每从阳上逆，而耳之窍职失聪。\""},{"m":"牙痛、牙周病","c":"牙、牙宣","k":"","x":0,"b":"《诸血病论》：\"血从齿龈出，谓之牙宣，胃与肾之火也。\""},{"m":"结膜炎、眼底病、过敏性鼻炎、鼻出血、慢性咽炎","c":"目、鼻、衄、咽喉、肝火","k":"","x":0,"b":"卷八\"目\"\"鼻\"\"衄\"\"咽喉\"诸篇、卷六\"肝火\"门"},{"m":"小儿惊厥、热性惊厥、营养不良、慢性腹泻、水痘","c":"惊、惊风、疳、痘、痫痉厥","k":"","x":0,"b":"《惊风论》：\"热甚则生痰生风生惊……设当日直以四字立名，曰热痰风惊。\"卷十诸篇"},{"m":"自汗、盗汗、多汗症","c":"汗","k":"04_feixi（汗）","x":0,"b":"《自汗盗汗论》：\"自汗者，不因发散，不因劳动，不分寤寐，溱溱然自然汗出，由阴蒸于阳分也……盗汗者眠熟则出，醒则倏然而收……\""},{"m":"慢性疲劳、久病体虚、脱肛","c":"虚劳、脱、脱肛","k":"04_feixi","x":0,"b":"《虚劳论》：\"孙思邈云∶补脾不如补肾。许学士云∶补肾不如补脾。\"卷七\"脱肛\"门"},{"m":"鼻窦炎、鼻渊（脓涕鼻塞头痛）、慢性鼻炎","c":"鼻（鼻渊、脑热鼻渊）","k":"","x":0,"b":"卷八\"鼻\"门：\"（脑热鼻渊）\"及\"经云。肺和则鼻能知香臭矣。又云。胆移热于脑。令人辛鼻渊。传为衄。\""},{"m":"口腔溃疡、复发性口疮、口腔炎","c":"口疳、疮疡、咽喉（咽喉生疮）","k":"","x":0,"b":"卷十\"口疳\"篇：\"满口皆生疳蚀。尝有阻塞咽喉致危者。\"卷八\"疮疡\"门：\"蒋（四岁）鼻疮口疮。尿黄肤热。\"卷八\"咽喉\"门：\"咽喉生疮。\""},{"m":"中耳炎、耳后淋巴结炎（耳胀痛、耳后肿痛）","c":"耳","k":"","x":1,"b":"卷八\"耳\"门：\"某（二二）先起咳嗽。继而耳胀痛。延绵百日不愈。\"\"某（女）风温发热。左耳后肿痛。\"【现代延伸对应】\"中耳炎\"名"},{"m":"青光眼（内障、瞳神散大、眼压升高）","c":"目（内障）","k":"","x":0,"b":"卷八\"目\"门：\"某 瞳神散大。左偏头痛。先损左目。是焦烦郁勃。阳升化风。\"\"内障昏蒙……皆虚候也。治宜壮水益火。\""},{"m":"白内障、玻璃体混浊、老年性视力减退","c":"目（内障、昏蒙）","k":"","x":0,"b":"卷八\"目\"门：\"凡久痛昏暗。青盲雀目。内障昏蒙。五色花翳。迎风泪出。皆虚候也。\"\"至于内障之症。但宜服药。\""},{"m":"夜盲、视网膜色素变性（雀目、青盲）","c":"目（雀目、青盲）","k":"","x":0,"b":"卷八\"目\"门：\"凡久痛昏暗。青盲雀目。……皆虚候也。治宜壮水益火。\""},{"m":"角膜炎、结膜下出血、目赤翳膜","c":"目（目赤、翳膜）","k":"","x":0,"b":"卷八\"目\"门：\"凡暴赤肿痛。胀闷难开。翳膜眵泪。酸涩作痒。斑疮入睛。皆实症也。\"《火论》：\"上为……喉痹耳鸣等证。\""},{"m":"干眼症、视疲劳、久视目昏","c":"目、燥","k":"","x":1,"b":"卷八\"目\"门：\"目痛无光。（肝肾虚）\"《燥论》：\"燥在上，则鼻燥咽干。\"【现代延伸对应】\"干眼症\"名"},{"m":"体表肿物、脂肪瘤、皮下囊肿","c":"疮疡（痰核、瘰疬）","k":"","x":0,"b":"卷八\"疮疡\"门：\"某 气郁痰核。夏枯草 生香附 丹皮 山栀 连翘 郁金 赤芍 橘红\""},{"m":"淋巴结肿大、淋巴瘤（颈项结块）","c":"疮疡（瘰疬、痰核、颈项结核）","k":"","x":1,"b":"卷八\"疮疡\"门：\"屠（三四）秋痢。半年未愈。瘰坚硬痛。疡脓。\"\"糜（氏）颈项结核。腹膨足肿。肝木犯中。痰气凝滞。\"（源文件\"瘰\"下阙字，通行本作\"瘰疬\"）【现代延伸对应】肿瘤概念"},{"m":"乳腺癌（乳岩）、乳房恶性肿瘤","c":"疮疡（乳、乳房结核）","k":"","x":1,"b":"卷八\"疮疡\"门：\"刘（氏）乳房为少阳脉络经行之所……有形而痛。当治在络。恐年岁日加。竟成沉痼。非痈脓之症。\"【现代延伸对应】叶氏无\"乳岩\"名"},{"m":"腹腔肿瘤、肝脾肿大（症瘕积聚）","c":"积聚、瘕","k":"03_piwei","x":0,"b":"卷四\"积聚\"门：\"葛 嗔怒强食。肝木犯土。腹痛。突如有形。缓则泯然无迹。\"《治积按国中末法论》：\"初者，病邪初起，正气尚强，邪气尚浅则任受攻。\""},{"m":"胸部占位、肺积（息贲）","c":"息贲、肺痹","k":"04_feixi","x":0,"b":"《喘哮短气气逆息贲辨》：\"息贲者，五积中之肺积也……右胁下必有积块以别之。\""},{"m":"食管癌、贲门癌、幽门梗阻（噎膈、反胃）","c":"噎膈反胃","k":"03_piwei","x":1,"b":"《噎膈反胃本于阴枯阳结论》：\"其槁在贲门，名之曰噎。噎者属上焦。\"\"槁在幽门，名曰反胃，亦曰胃反，此属中焦。\"【现代延伸对应】肿瘤概念"},{"m":"结直肠癌、下消化道肿瘤（滞下、便血、腹块）","c":"痢、便血、积聚","k":"","x":1,"b":"《痢疾证治论》：\"痢疾即古所称肠□也（源文件此字阙，通行本作「肠澼」），自仲景而后，又谓之滞下。\"《诸血病论》：\"滞下之由，多由湿蒸热瘀，故必脓血相杂，里急后重。\"【现代延伸对应】"},{"m":"肝脓肿、阑尾炎、腹腔脓肿（内痈、肠痈、肝痈）","c":"疮疡（内痈、肠痈、肝痈）","k":"","x":0,"b":"卷八\"疮疡\"门：\"欲作内痈之象。部位脐左之上。内应乎肝。\"\"吐痰口气皆臭。内痈已见一班矣。（肝痈）\"\"某 舌焦黄。小腹坚满。小便不利。两足皆痿……有肠痈之虑。\""},{"m":"小儿疳积、生长发育迟缓、腹膨消瘦","c":"疳（五疳）、疳积","k":"","x":0,"b":"卷十\"疳\"篇：\"沈 稚年歇乳进谷。脾胃气馁少运。腹膨目医。是为五疳。\"\"张（四岁）五疳。腹胀数月。法当疏补。\""},{"m":"小儿腹泻、秋季腹泻、食瓜果泄泻","c":"幼科\"吐泻\"\"吐泻霍乱\"\"食瓜果泄泻\"","k":"","x":0,"b":"卷十\"吐泻\"篇：\"王 未到周岁。热犯脾胃。呕逆下利。壮热不已。最多慢惊之变。\""},{"m":"小儿惊厥、高热惊厥、慢惊风","c":"幼科\"惊\"\"痫痉厥\"\"受热厥逆\"","k":"","x":0,"b":"卷十\"痫痉厥\"篇：\"周 稚年痫厥。病发迅速。醒来二便自通。\"《惊风论》：\"热甚则生痰生风生惊……设当日直以四字立名，曰热痰风惊。\""},{"m":"小儿虫积、蛔虫蛲虫症（腹痛、肛痒、夜磨牙）","c":"虫、疳积","k":"","x":0,"b":"卷十\"虫\"篇：\"龚（七岁）湿热生虫。腹痛便溏。恶食。\"\"许 肠有湿热生虫。\""},{"m":"小儿暑热症（夏季热）、夏季长期发热","c":"幼科\"夏热\"\"暑热\"","k":"","x":0,"b":"卷十\"幼科要略\"有\"夏热\"\"暑热\"两篇；《中暑中热论》：\"暑热者，夏之令也。\""},{"m":"新生儿黄疸、婴幼儿黄疸","c":"疸、幼科\"吐泻霍乱\"","k":"05_fuke","x":1,"b":"卷四\"疸\"门；《黄胆证毋拘五证宜别三焦论》：\"非特湿热发黄，而寒湿亦发黄也。\"【现代延伸对应】\"新生儿\"概念"},{"m":"老年衰弱、肌少症、易跌倒","c":"虚劳、痿、脱","k":"04_feixi","x":0,"b":"《痿论》：\"痿乃正气本虚……当以不足名之。\"《虚劳论》：\"救脾者，必本于阳气。\"卷七\"痿\"门：\"病后。阴伤骨痿。\""},{"m":"老年性便秘、习惯性便秘","c":"便闭、关格","k":"03_piwei","x":0,"b":"卷四\"便闭\"门：\"叶（二十）阳气郁勃。腑失传导。纳食中痞。大便结燥。\"《淋闭证治论》：\"若大小便皆闭，上为呕吐者，世称关格。\""},{"m":"夜尿频多、夜间多尿、老年尿失禁","c":"淋浊、脱（肾气不摄）","k":"","x":1,"b":"卷七\"脱肛\"门：\"某 便后。少腹痛肛坠。溺则便滑。肾虚不摄。\"《淋闭证治论》\"皆关乎脾肺\"【现代延伸对应】"},{"m":"老年皮肤瘙痒、乏脂性皮炎","c":"燥、疮疡","k":"","x":0,"b":"《燥论》：\"燥在外，皮肤皱揭，疥痒爪枯。\""},{"m":"老年肺炎、坠积性肺炎、老年久咳","c":"咳嗽、风温、虚劳","k":"01_wenbing","x":1,"b":"卷二\"咳嗽\"门、卷五\"风温\"门；《咳嗽要论》：\"咳嗽必由于肺。\"【现代延伸对应】病原归属"},{"m":"长期低热、原因不明发热","c":"内伤发热、郁、虚劳","k":"04_feixi","x":0,"b":"《内伤余议》：\"窃谓内热之作。非皆阴火，但气郁则成热耳。\"《虚劳论》：\"第以脾肾分主气血。\""},{"m":"潮热、骨蒸、五心烦热","c":"虚劳、诸血病（骨蒸）、阴虚","k":"04_feixi","x":0,"b":"《诸血病论》：\"唾血者……骨蒸内热，干咳肌瘦，乃肾水枯涸。\"《阳有余阴不足论》：\"曰阴虚者，肾中之真阴虚也，病多壮热，责其无水。\""},{"m":"畏寒肢冷（自觉冷而实非寒）","c":"郁、火（假寒）、诸气","k":"05_fuke（郁）","x":0,"b":"《诸气不当作寒治论》：\"自觉冷者，非真冷也，火极以水，阳亢阴微。\"《病有真假辨》：\"假寒者，火极似水，阳证似阴也。\""},{"m":"手足麻木、指端麻木","c":"痹（着痹）、肝风","k":"","x":0,"b":"《痹证析微论》：\"着痹者，着而不移，世称麻木不仁之类是也。\"卷八\"诸痛\"门"},{"m":"反复口腔溃疡、口臭","c":"口疳、火、疮疡","k":"","x":0,"b":"卷十\"口疳\"篇：\"满口皆生疳蚀。\"《火论》：\"上为喘呕吐酸，吐血衄血……喉痹耳鸣等证。\""},{"m":"消瘦、食欲不振、纳呆不食","c":"不食、脾胃、疳","k":"03_piwei","x":0,"b":"卷四\"不食\"门；《寝食说》：\"不能食之证……有脾胃自虚而不能健运者，有火不生土无由熟腐者。\""},{"m":"嗜睡、精神困倦、多寐","c":"嗜卧、痰湿","k":"","x":0,"b":"《寝食说》：\"嗜卧之证……若脉缓怠惰，四肢不收，体重泄泻而嗜卧，由于湿也。\"《痰论》：\"湿痰多成倦怠嗜卧。\""},{"m":"心悸怔忡","c":"怔忡、惊悸","k":"","x":0,"b":"《惊悸恐辨》：\"悸即怔忡也。怔忡者，本无惊恐，动而不宁。\""},{"m":"口苦、咽干、鼻干（燥象）","c":"燥、肝火","k":"","x":0,"b":"《燥论》：\"燥在上，则鼻燥咽干。\"卷六\"肝火\"门"},{"m":"便血、尿血","c":"便血、溺血（诸血病）","k":"","x":0,"b":"《诸血病论》：\"溺血便是溺中见红，法当凉解。\"《血营气卫论》：\"血之为患，其妄行则为吐衄。\""},{"m":"腰痛、腰腿痛、尻痛","c":"腰腿足痛、诸痛","k":"","x":0,"b":"卷八\"腰腿足痛\"\"诸痛\"两门：\"陈 久痛必入络。气血不行。\""},{"m":"健忘、记忆减退、注意力不集中","c":"神呆、虚劳","k":"","x":1,"b":"卷十\"痫痉厥\"篇：\"唐（十四）面青脉濡。神呆。\"《寝食说》论寤寐与神思【现代延伸对应】"}];
+  var q = document.getElementById('q'), list = document.getElementById('list'),
+      count = document.getElementById('count'), empty = document.getElementById('empty');
+  var CAP = 60;
+  function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+  function render(){
+    var kw = q.value.trim().toLowerCase();
+    var hit = kw ? MAP.filter(function(r){
+      return (r.m + ' ' + r.c).toLowerCase().indexOf(kw) >= 0;
+    }) : MAP.slice(0, 8);
+    list.innerHTML = '';
+    hit.slice(0, CAP).forEach(function(r){
+      var li = document.createElement('li');
+      var badges = (r.k ? '<span class="badge">cases ' + esc(r.k) + '</span>' : '')
+                 + (r.x ? '<span class="badge warn">现代延伸对应</span>' : '');
+      li.innerHTML = '<span class="m">' + esc(r.m) + '</span><span class="arrow">→</span>'
+                   + '<span class="c">' + esc(r.c) + '</span>' + badges
+                   + '<span class="src">' + esc(r.b) + '</span>';
+      list.appendChild(li);
+    });
+    var more = hit.length > CAP ? '（仅列前 ' + CAP + ' 条）' : '';
+    count.textContent = kw
+      ? '命中 ' + hit.length + ' 条 / 全 158 条 ' + more
+      : '常用示例 ' + hit.length + ' 条 · 全表 158 条，输入即筛';
+    empty.hidden = !(kw && hit.length === 0);
+  }
+  q.addEventListener('input', render);
+  render();
+
+  /* 钱 → 克 */
+  var qian = document.getElementById('qian'), gram = document.getElementById('gram');
+  function conv(){
+    var v = parseFloat(qian.value);
+    gram.textContent = isNaN(v) ? '—' : (v * 3.73).toFixed(2);
+  }
+  qian.addEventListener('input', conv);
+  conv();
+
+  /* 目次高亮 */
+  var links = [].slice.call(document.querySelectorAll('#toc a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var a = map[e.target.id];
+        if (!a || !e.isIntersecting) return;
+        links.forEach(function(l){ l.removeAttribute('aria-current'); });
+        a.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    Object.keys(map).forEach(function(id){
+      var s = document.getElementById(id);
+      if (s) spy.observe(s);
+    });
+  }
+})();
+</script>
+</body>
+</html>
