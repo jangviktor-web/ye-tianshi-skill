@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="120" src="docs/assets/logo.webp" alt="叶天士 Skill Logo：金环内清代医家手托药苗、竹与远山，下方「叶天士」三字">
+<img width="350" src="docs/assets/logo.webp" alt="叶天士 Skill Logo：金环内清代医家手托药苗、竹与远山，下方「叶天士」三字">
 
 # 叶天士Skill · 温病卫气营血辨证AI
 
